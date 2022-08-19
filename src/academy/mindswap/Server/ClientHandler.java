@@ -36,25 +36,17 @@ public class ClientHandler {
         return name;
     }
 
-    public String readMessage() {
-        try {
+    public String readMessage() throws IOException {
             String message = reader.readLine();
             if (message == null) {
                 playerSocket.close();
             }
             return message;
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
-    public void sendMessage(String message) {
-        try {
+    public void sendMessage(String message) throws IOException {
             writer.write(message);
             writer.newLine();
             writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     public boolean isPlaying() {

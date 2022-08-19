@@ -5,11 +5,11 @@ public enum CharactersAndMonsters {
     MAGE ("Mage"),
     KNIGHT("Knight"),
     SQUIRE("Squire"),
-    FINAL_BOSS("The Final Boss"),
-    MINI_BOSS("A mini boss appears"),
-    SLIME("A slime"),
-    GOBLIN("A goblin"),
-    TROLL("a troll");
+    FINAL_BOSS("Final Boss"),
+    MINI_BOSS("Mini Boss "),
+    SLIME("slime"),
+    GOBLIN("goblin"),
+    TROLL("Troll");
 
     private final String info;
 

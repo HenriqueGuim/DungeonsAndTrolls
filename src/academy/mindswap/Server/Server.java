@@ -1,6 +1,6 @@
 package academy.mindswap.Server;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
@@ -35,9 +35,11 @@ public class Server {
 
     }
     private void acceptPlayers() {
+        ClientHandler clientHandler = null;
             try {
                 System.out.println("Waiting for players");
-                ClientHandler clientHandler = new ClientHandler(serverSocket.accept());
+                clientHandler = new ClientHandler(serverSocket.accept());
+                welcomeMessage(clientHandler);
                 clientHandler.sendMessage("Welcome to the server\n Please enter your name");
                 clientHandler.setName(clientHandler.readMessage());
                 clientHandler.sendMessage("Welcome" + " to the server " + clientHandler.getName());
@@ -47,9 +49,19 @@ public class Server {
                 connectPlayers();
                 acceptPlayers();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                clientsList.remove(clientHandler);
+                acceptPlayers();
             }
         
+    }
+
+    private void welcomeMessage(ClientHandler clientHandler) throws IOException {
+        File file = new File("resources/welcomeMessage");
+        BufferedReader welcomeReader = new BufferedReader(new FileReader(file));
+        String line;
+        while ((line = welcomeReader.readLine()) != null) {
+            clientHandler.sendMessage("\033[0;92m" +line + "\033[0m");
+        }
     }
 
     private void connectPlayers() {
@@ -67,9 +79,15 @@ public class Server {
         }
         if (playerCount == 3) {
             System.out.println("starting a new game");
-            clientsList.forEach(client -> client.sendMessage("starting a new game"));
+            clientsList.forEach(client -> {
+                try {
+                    client.sendMessage("starting a new game");
+                } catch (IOException e) {
+                        clientsList.remove(client);
+                }
+            });
             //Game game = new Game(clientHandlers, this);
-            // threadPool.submit(game);
+            //threadPool.submit(game);
         }
     }
 }
