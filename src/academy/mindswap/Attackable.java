@@ -1,6 +1,7 @@
 package academy.mindswap;
 
-public class Main {
+public interface Attackable {
+
 
 
 
