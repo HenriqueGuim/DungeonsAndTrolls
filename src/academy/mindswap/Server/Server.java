@@ -54,26 +54,22 @@ public class Server {
 
     private void connectPlayers() {
         ClientHandler[] clientHandlers = new ClientHandler[3];
+        int playerCount = 0;
 
-        clientsList.forEach(client -> {
-            if(clientHandlers[2] == null){
-                return;}
-
-            if(!client.isPlaying() && !client.isOffline()){
-                for (ClientHandler position:clientHandlers) {
-                    if (position == null){
-                        position = client;
-                    }
-                }
-
+        for (ClientHandler clientHandler : clientsList) {
+            if (playerCount == 3) {
+                break;
             }
-        });
-        if(clientHandlers[2] != null){
+            if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
+                clientHandlers[playerCount] = clientHandler;
+                playerCount++;
+            }
+        }
+        if (playerCount == 3) {
             System.out.println("starting a new game");
+            clientsList.forEach(client -> client.sendMessage("starting a new game"));
             //Game game = new Game(clientHandlers, this);
-           // threadPool.submit(game);
+            // threadPool.submit(game);
         }
     }
-
-
 }
