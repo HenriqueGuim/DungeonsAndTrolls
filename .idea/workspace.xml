@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Added outros and other minor stuff">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="added more ascii art">
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Boss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Chest.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Fairy" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/MiniBoss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Art/Cat.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Troll.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Art/Goblin.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Goblin.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +123,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660908317527</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="added more ascii art">
+      <created>1660910166340</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1660910166340</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -140,6 +149,7 @@
     <MESSAGE value="adding more art" />
     <MESSAGE value="Organizing project" />
     <MESSAGE value="Added outros and other minor stuff" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added outros and other minor stuff" />
+    <MESSAGE value="added more ascii art" />
+    <option name="LAST_COMMIT_MESSAGE" value="added more ascii art" />
   </component>
 </project>
