@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="adding more art">
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroLose.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroWin.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Boss.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Goblin.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/MiniBoss.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Monster.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Slime.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Troll.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Obstacle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Specials/Fairy.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Specials/SpecialObstacle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Specials/TreasureChest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Monsters/Cat.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Cat.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Monsters/Slime.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Art/Slime.txt" afterDir="false" />
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Organizing project">
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroLose.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroLose.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroWin.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Narrator/OutroWin.txt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -112,7 +99,21 @@
       <option name="project" value="LOCAL" />
       <updated>1660905687517</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Organizing project">
+      <created>1660907822048</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1660907822048</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Organizing project">
+      <created>1660907833919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660907833919</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -129,6 +130,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creating Intros" />
     <MESSAGE value="adding more art" />
-    <option name="LAST_COMMIT_MESSAGE" value="adding more art" />
+    <MESSAGE value="Organizing project" />
+    <option name="LAST_COMMIT_MESSAGE" value="Organizing project" />
   </component>
 </project>
