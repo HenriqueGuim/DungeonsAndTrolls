@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Creating Intros">
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Added outros and other minor stuff">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Server/Server.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/GameInterfaces/Attackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/GameInterfaces/Attackable.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,6 +21,9 @@
       </list>
     </option>
   </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="master" />
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -29,13 +31,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="master" />
-      </list>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -56,33 +51,12 @@
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RunManager" selected="Application.Server">
-    <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
-      <module name="DungeonsAndTrolls" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="academy.mindswap.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="academy.mindswap.Server.Server" />
-      <module name="DungeonsAndTrolls" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="academy.mindswap.Server.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/academy/mindswap/Art" />
+    </key>
+  </component>
+  <component name="RunManager">
     <configuration name="academy.mindswap.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Main" />
       <module name="DungeonsAndTrolls" />
@@ -98,10 +72,6 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Server" />
-        <item itemvalue="Application.academy.mindswap.Main" />
-        <item itemvalue="Application.academy.mindswap.Main" />
-        <item itemvalue="Application.academy.mindswap.Main" />
         <item itemvalue="Application.academy.mindswap.Main" />
       </list>
     </recent_temporary>
@@ -122,7 +92,35 @@
       <option name="project" value="LOCAL" />
       <updated>1660900735664</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="adding more art">
+      <created>1660905687517</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1660905687517</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Organizing project">
+      <created>1660907822048</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1660907822048</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Organizing project">
+      <created>1660907833919</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1660907833919</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Added outros and other minor stuff">
+      <created>1660908317527</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1660908317527</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -138,21 +136,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creating Intros" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creating Intros" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/Server/Server.java</url>
-          <line>54</line>
-          <properties class="academy.mindswap.Server.Server" method="connectPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="adding more art" />
+    <MESSAGE value="Organizing project" />
+    <MESSAGE value="Added outros and other minor stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added outros and other minor stuff" />
   </component>
 </project>
