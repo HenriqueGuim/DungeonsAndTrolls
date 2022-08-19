@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Attackable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Narrator/intro.txt" afterDir="false" />
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Added Monsters and Characters info">
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Attackable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/CharactersAndMonsters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Features.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Obstacles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Attackable.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,16 +20,25 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Enum" />
+        <option value="Class" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="Creating_intros" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectCodeStyleSettingsMigration">
     <option name="version" value="2" />
@@ -44,7 +53,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "last_opened_file_path": "/Users/joseferreira/Documents/GitHub/DungeonsAndTrolls"
   }
 }]]></component>
   <component name="RunManager">
@@ -53,7 +64,7 @@
       <module name="DungeonsAndTrolls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="academy.mindswap.*" />
+          <option name="PATTERN" value="CharactersAndMonsters.Attackable.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -63,7 +74,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.academy.mindswap.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -76,6 +87,14 @@
       <option name="presentableId" value="Default" />
       <updated>1660897305534</updated>
     </task>
+    <task id="LOCAL-00001" summary="No message">
+      <created>1660905152190</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1660905152190</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -88,5 +107,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="No message" />
+    <MESSAGE value="Added Monsters and Characters info" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Monsters and Characters info" />
   </component>
 </project>
