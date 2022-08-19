@@ -13,6 +13,7 @@ public enum Obstacles {
 
     }
 
+
     public CharactersAndMonsters getMonstersAndObstacles() {
         return monstersAndObstacles;
     }

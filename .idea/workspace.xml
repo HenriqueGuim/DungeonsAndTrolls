@@ -2,16 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="server communication with player created and corrected the method to connect players">
-      <change afterPath="$PROJECT_DIR$/resources/welcomeMessage" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Server/Game.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Goblin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Monsters.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Slime.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Monsters/Troll.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/Obstacles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/SpecialObstacles/BadChest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/SpecialObstacles/EmptyRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/SpecialObstacles/Fairy.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/SpecialObstacles/GoodChest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/academy/mindswap/Obstacles/SpecialObstacles/SpecialObstacle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Attackable.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/CharactersAndMonsters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/CharactersAndMonsters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Obstacles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/CharactersAndMonsters/Obstacles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/GameInterfaces/Attackable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/GameInterfaces/Attackable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Monsters/Cat.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Cat.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Narrator/intro.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/intro.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Server/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Server/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Server/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +29,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>

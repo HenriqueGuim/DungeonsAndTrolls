@@ -7,8 +7,8 @@ public enum CharactersAndMonsters {
     SQUIRE("Squire"),
     FINAL_BOSS("Final Boss"),
     MINI_BOSS("Mini Boss "),
-    SLIME("slime"),
-    GOBLIN("goblin"),
+    SLIME("Slime"),
+    GOBLIN("Goblin"),
     TROLL("Troll");
 
     private final String info;
