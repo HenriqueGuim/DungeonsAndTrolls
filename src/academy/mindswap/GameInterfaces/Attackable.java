@@ -1,9 +1,13 @@
 package academy.mindswap.GameInterfaces;
 
 public interface Attackable {
-    void looseHealth(int hp);
+
+    void increaseHealth(int hp);
+
+    void decreaseHealth(int hp);
+
     void die();
+
     boolean isdead();
-
-
 }
+
