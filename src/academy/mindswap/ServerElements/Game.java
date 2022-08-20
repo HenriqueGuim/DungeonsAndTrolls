@@ -106,10 +106,17 @@ public class Game implements Runnable {
 
 
     public void showMap(){
+        boolean visitedRoom = false;
         for (int i = 0; i < 6; i++) {
             String message = "";
+            System.out.println("");
             for (int j = 0; j < 6; j++) {
-                System.out.println(message.concat(map[i][j].getMapIdentifier()));
+                if(visitedRoom){
+                message = map[i][j].getMapIdentifier();
+                System.out.print( "[" + message + "]");
+                }
+                message = "[?]";
+                System.out.println(message);
             }
         }
     }
