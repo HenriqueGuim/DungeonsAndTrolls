@@ -106,13 +106,11 @@ public class Game implements Runnable {
 
 
     public void showMap(){
-        try {
-            for (Obstacle[] x : map){
-                player1.sendMessage( Arrays.toString(x) );
-
+        for (int i = 0; i < 6; i++) {
+            String message = "";
+            for (int j = 0; j < 6; j++) {
+                System.out.println(message.concat(map[i][j].getMapIdentifier()));
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
         }
     }
 
