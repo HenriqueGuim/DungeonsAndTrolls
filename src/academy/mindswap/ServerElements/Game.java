@@ -1,5 +1,6 @@
 package academy.mindswap.ServerElements;
 
+import academy.mindswap.Player;
 import academy.mindswap.ServerElements.ClientHandler;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
@@ -9,10 +10,8 @@ import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.F
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
 import academy.mindswap.ServerElements.Server;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
+import java.io.IOException;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -21,6 +20,7 @@ public class Game implements Runnable {
     private ClientHandler player1;
     private ClientHandler player2;
     private ClientHandler player3;
+
     private Character player1Character;
     private Character player2Character;
     private Character player3Character;
@@ -105,40 +105,46 @@ public class Game implements Runnable {
     }
 
 
+    public void showMap(){
+        try {
+            for (Obstacle[] x : map){
+                player1.sendMessage( Arrays.toString(x) );
+
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
     @Override
     public void run() {
 
         //TODO say to the players that the game is starting
         //TODO ask the players to choose a character
         //TODO show the players the map
-        //TODO ask the players to choose the moving direction and vote, if the vote isn't unanimous they will move in a random direction
+        //TODO ask the players to choose the moving direction and vote,
+        // if the vote isn't unanimous they will move in a random direction
         //TODO if the players are on the edge of the map, they have to vote again
         //TODO check which type of obstacle is on the players position and act accordingly
               //TODO if is a chest obstacle, the players have to vote to open it.
               //TODO if is a fairy obstacle, all the players receive a boost in his health
-              //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
+              //TODO if is a monster obstacle, the players have to attack and defend the monster
+              // until it dies, (the monster should attack the player with less health)
               //TODO the players have to choose his action for the round
         //TODO show the players the character stats
         //TODO show the players the map and repeat until they move to the final boss room
 
-        threadPool.submit(new Runnable() {
-            @Override
-            public void run() {
-                createMap();
-            }
-        });
-        chooseCharacters();
+        threadPool.submit(this::createMap);
+        showMap();
+        // chooseCharacters();
         try {
             threadPool.awaitTermination(5, TimeUnit.MINUTES);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        showMap();
-        playGame();
-        askToPlayAgain();
+        // playGame();
+        // askToPlayAgain();
         }
 
-
-    }
 }
-
