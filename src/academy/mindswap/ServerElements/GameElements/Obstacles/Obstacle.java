@@ -1,10 +1,8 @@
 package academy.mindswap.ServerElements.GameElements.Obstacles;
 
 public abstract class Obstacle {
+    private boolean visitedRoom = false;
     private String mapIdentifier = "X" ;
     public String getMapIdentifier() {return mapIdentifier;}
-    @Override
-    public String toString() {
-        return  getMapIdentifier();
-    }
+    public boolean isVisitedRoom() {return visitedRoom;}
 }
