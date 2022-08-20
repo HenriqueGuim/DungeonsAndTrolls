@@ -1,7 +1,7 @@
-package academy.mindswap.Obstacles.SpecialObstacles;
-import academy.mindswap.Obstacles.Obstacles;
+package academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles;
+import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 
-public abstract class SpecialObstacle extends Obstacles {
+public abstract class SpecialObstacle extends Obstacle {
 
     private int healthModifier;
 

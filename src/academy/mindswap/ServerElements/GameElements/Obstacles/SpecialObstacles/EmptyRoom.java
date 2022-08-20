@@ -1,7 +1,7 @@
-package academy.mindswap.Obstacles.SpecialObstacles;
-import academy.mindswap.Obstacles.Obstacles;
+package academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles;
+import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 
-public class EmptyRoom extends Obstacles {
+public class EmptyRoom extends Obstacle {
 
     private String rubbleRoom = "There is a lot of rubble in this room...";
     private String smellyRoom = "There is a lingering smell of rot in this room.";

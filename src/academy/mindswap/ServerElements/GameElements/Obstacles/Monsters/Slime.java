@@ -1,4 +1,4 @@
-package academy.mindswap.Obstacles.Monsters;
+package academy.mindswap.ServerElements.GameElements.Obstacles.Monsters;
 
 public class Slime extends Monsters{
     public Slime() {

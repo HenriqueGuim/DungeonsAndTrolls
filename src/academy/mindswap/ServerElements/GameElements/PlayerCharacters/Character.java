@@ -1,10 +1,10 @@
-package academy.mindswap.Characters;
+package academy.mindswap.ServerElements.GameElements.PlayerCharacters;
 
-import academy.mindswap.GameInterfaces.Attackable;
+import academy.mindswap.ServerElements.GameElements.GameInterfaces.Attackable;
 
 import java.util.Random;
 
-public abstract class Characters implements Attackable {
+public abstract class Character implements Attackable {
 
     private int health;
 
@@ -16,20 +16,20 @@ public abstract class Characters implements Attackable {
 
 
 
-    public Characters(int health, int damage) {
+    public Character(int health, int damage) {
         this.health = health;
         this.damage = damage;
     }
 
-    public int getInitialHealth() {
+    public int getHealth() {
         return health;
     }
 
-    public int getInitialDamage() {
+    public int getDamage() {
         return damage;
     }
 
-    public void defense (int damage){
+    public void defend(int damage){
         decreaseHealth(damage / 2);
         chooseDefend = false;
     }
@@ -63,7 +63,7 @@ public abstract class Characters implements Attackable {
             return;
         }
         if (chooseDefend){ //if we choose to dodge, it will call de decreaseHealth method;
-            defense(damage);
+            defend(damage);
             return;
         }
 
@@ -102,13 +102,13 @@ public abstract class Characters implements Attackable {
     }
 
     @Override
-    public boolean isdead(){
+    public boolean isDead(){
         return health <=0;
     }
 
     @Override
     public void die() {
-        if (isdead()){
+        if (isDead()){
             health = 0;
         }
     }

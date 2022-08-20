@@ -1,4 +1,4 @@
-package academy.mindswap.Server;
+package academy.mindswap.ServerElements;
 
 import java.io.*;
 import java.net.Socket;

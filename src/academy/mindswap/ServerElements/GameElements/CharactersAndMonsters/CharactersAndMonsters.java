@@ -1,4 +1,4 @@
-package academy.mindswap.CharactersAndMonsters;
+package academy.mindswap.ServerElements.GameElements.CharactersAndMonsters;
 
 public enum CharactersAndMonsters {
 

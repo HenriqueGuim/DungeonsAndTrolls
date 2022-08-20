@@ -1,4 +1,4 @@
-package academy.mindswap.GameInterfaces;
+package academy.mindswap.ServerElements.GameElements.GameInterfaces;
 
 public interface Attackable {
 
@@ -8,6 +8,6 @@ public interface Attackable {
 
     void die();
 
-    boolean isdead();
+    boolean isDead();
 }
 

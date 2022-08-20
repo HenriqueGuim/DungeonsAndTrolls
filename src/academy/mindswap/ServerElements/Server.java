@@ -1,10 +1,11 @@
-package academy.mindswap.Server;
+package academy.mindswap.ServerElements;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
 
 
 public class Server {
@@ -86,8 +87,8 @@ public class Server {
                         clientsList.remove(client);
                 }
             });
-            //Game game = new Game(clientHandlers, this);
-            //threadPool.submit(game);
+            Game game = new Game(clientHandlers, this);
+            threadPool.submit(game);
         }
     }
 }
