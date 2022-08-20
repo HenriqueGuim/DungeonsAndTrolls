@@ -5,6 +5,6 @@ public abstract class Obstacle {
     public String getMapIdentifier() {return mapIdentifier;}
     @Override
     public String toString() {
-        return  mapIdentifier;
+        return  getMapIdentifier();
     }
 }
