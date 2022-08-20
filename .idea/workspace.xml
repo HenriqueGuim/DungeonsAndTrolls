@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="show map WIP**">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="show map WIP****">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -164,7 +165,21 @@
       <option name="project" value="LOCAL" />
       <updated>1661016950105</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="show map WIP***">
+      <created>1661019196013</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1661019196013</updated>
+    </task>
+    <task id="LOCAL-00006" summary="show map WIP****">
+      <created>1661022448367</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1661022448367</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -183,6 +198,8 @@
     <MESSAGE value="updated master with characters and obstacles" />
     <MESSAGE value="show map WIP" />
     <MESSAGE value="show map WIP**" />
-    <option name="LAST_COMMIT_MESSAGE" value="show map WIP**" />
+    <MESSAGE value="show map WIP***" />
+    <MESSAGE value="show map WIP****" />
+    <option name="LAST_COMMIT_MESSAGE" value="show map WIP****" />
   </component>
 </project>
