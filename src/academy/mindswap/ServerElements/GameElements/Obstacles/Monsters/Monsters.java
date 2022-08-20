@@ -5,13 +5,13 @@ import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 public abstract class Monsters extends Obstacle implements Attackable{
     private int health;
     private int damage;
-    private String mapIdentifier = "X";
+
     //private MonsterStatus status;
-    public Monsters(int health , int damage ) {
+    public Monsters(int health , int damage, String mapIdentifier ) {
+        super(mapIdentifier);
         this.health = health;
         this.damage = damage;
     }
-    public String getMapIdentifier() {return mapIdentifier;}
     @Override
     public void increaseHealth(int hp) {this.health += hp;}
     @Override

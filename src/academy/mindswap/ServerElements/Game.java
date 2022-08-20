@@ -1,14 +1,11 @@
 package academy.mindswap.ServerElements;
 
-import academy.mindswap.Player;
-import academy.mindswap.ServerElements.ClientHandler;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.BadChest;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.EmptyRoom;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.Fairy;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
-import academy.mindswap.ServerElements.Server;
 
 import java.io.IOException;
 import java.util.*;
@@ -50,6 +47,8 @@ public class Game implements Runnable {
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
         map[0][0] = new EmptyRoom();
         map[5][5] = new FinalBoss();
+        map[0][0].visitRoom();
+        map[5][5].visitRoom();
 
         LinkedList<Obstacle> obstaclesList = new LinkedList<>(createObstacles());
 
@@ -110,19 +109,13 @@ public class Game implements Runnable {
         for (int i = 0; i < 6; i++) {
             String message = "";
             for (int j = 0; j < 6; j++) {
-                if(i==0&&j==0){
-                    message = message.concat("[" + map[i][j].getMapIdentifier() + "]" );
-                    continue;
+                if(i == playersPosition[0] && j ==playersPosition[1]) {
+                    message = message.concat("\033[42m" + "[" + map[i][j].getMAP_IDENTIFIER() + "]" + "\033[0m");
                 }
-                if(i==5&&j==5){
-                    message = message.concat("[" + map[i][j].getMapIdentifier() + "]" );
-                    continue;
+                else
+                {
+                    message = message.concat("[" + map[i][j].getMAP_IDENTIFIER() + "]" );
                 }
-                if(map[i][j].isVisitedRoom() == true){
-                    message = message.concat("[" + map[i][j].getMapIdentifier() + "]" );
-                    continue;
-                }
-                message = "[?]";
             }
             player1.sendMessage(message);
             player2.sendMessage(message);
@@ -152,14 +145,9 @@ public class Game implements Runnable {
         //TODO show the players the character stats
         //TODO show the players the map and repeat until they move to the final boss room
 
-        threadPool.submit(this::createMap);
+        createMap();
         showMap();
         // chooseCharacters();
-        try {
-            threadPool.awaitTermination(5, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
         // playGame();
         // askToPlayAgain();
         }

@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="show map WIP****">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="show map WIP*****">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/FinalBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/FinalBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Goblin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Goblin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/MiniBoss.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/MiniBoss.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Monsters.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Monsters.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Slime.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Slime.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Troll.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Monsters/Troll.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/EmptyRoom.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/EmptyRoom.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +187,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661022448367</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="show map WIP*****">
+      <created>1661027643245</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661027643245</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -200,6 +215,19 @@
     <MESSAGE value="show map WIP**" />
     <MESSAGE value="show map WIP***" />
     <MESSAGE value="show map WIP****" />
-    <option name="LAST_COMMIT_MESSAGE" value="show map WIP****" />
+    <MESSAGE value="show map WIP*****" />
+    <option name="LAST_COMMIT_MESSAGE" value="show map WIP*****" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-field">
+          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java</url>
+          <line>4</line>
+          <properties field="MAP_IDENTIFIER" class="academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle" />
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
