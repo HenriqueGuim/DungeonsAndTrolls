@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="added first version of readFile method">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="implemented players choosing message at the same time">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
     </list>
@@ -17,17 +17,15 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
   </component>
-  <component name="Git.Merge.Settings">
-    <option name="BRANCH" value="master" />
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Creating_show_map" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -46,6 +44,7 @@
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
+    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
@@ -53,16 +52,29 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/academy/mindswap/Art" />
+      <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Server">
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="academy.mindswap.ServerElements.Server" />
+  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
+    <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="academy.mindswap.ServerElements.*" />
+          <option name="PATTERN" value="academy.mindswap.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="academy.mindswap.Server.Server" />
+      <module name="DungeonsAndTrolls" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="academy.mindswap.Server.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -83,12 +95,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="academy.mindswap.Player" type="Application" factoryName="Application" singleton="false" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
+    <configuration name="academy.mindswap.ServerElements.Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="academy.mindswap.ServerElements.Server" />
       <module name="DungeonsAndTrolls" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="academy.mindswap.*" />
+          <option name="PATTERN" value="academy.mindswap.ServerElements.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -96,18 +108,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.academy.mindswap.Main" />
-      <item itemvalue="Application.academy.mindswap.Player" />
-      <item itemvalue="Application.Server" />
-    </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.academy.mindswap.Player" />
         <item itemvalue="Application.Server" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
-        <item itemvalue="Application.academy.mindswap.Main" />
-        <item itemvalue="Application.academy.mindswap.Main" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
+        <item itemvalue="Application.Server" />
       </list>
     </recent_temporary>
   </component>
@@ -127,57 +134,47 @@
       <option name="project" value="LOCAL" />
       <updated>1660900735664</updated>
     </task>
-    <task id="LOCAL-00002" summary="adding more art">
-      <created>1660905687517</created>
+    <task id="LOCAL-00002" summary="updated Knight">
+      <created>1661096601403</created>
       <option name="number" value="00002" />
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
-      <updated>1660905687517</updated>
+      <updated>1661096601403</updated>
     </task>
-    <task id="LOCAL-00003" summary="Organizing project">
-      <created>1660907822048</created>
+    <task id="LOCAL-00003" summary="updated Game">
+      <created>1661097302138</created>
       <option name="number" value="00003" />
       <option name="presentableId" value="LOCAL-00003" />
       <option name="project" value="LOCAL" />
-      <updated>1660907822048</updated>
+      <updated>1661097302138</updated>
     </task>
-    <task id="LOCAL-00004" summary="Organizing project">
-      <created>1660907833919</created>
+    <task id="LOCAL-00004" summary="merged show map and choosing character">
+      <created>1661097664805</created>
       <option name="number" value="00004" />
       <option name="presentableId" value="LOCAL-00004" />
       <option name="project" value="LOCAL" />
-      <updated>1660907833919</updated>
+      <updated>1661097664805</updated>
     </task>
-    <task id="LOCAL-00005" summary="Added outros and other minor stuff">
-      <created>1660908317527</created>
+    <task id="LOCAL-00005" summary="implemented players choosing message at the same time">
+      <created>1661099636329</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1660908317527</updated>
+      <updated>1661099636329</updated>
     </task>
-    <task id="LOCAL-00006" summary="added more ascii art">
-      <created>1660910166340</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1660910166340</updated>
-    </task>
-    <task id="LOCAL-00007" summary="added resources folders">
-      <created>1661031528568</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1661031528568</updated>
-    </task>
-    <task id="LOCAL-00008" summary="added first version of readFile method">
-      <created>1661098704789</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1661098704789</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
+    <option name="localTasksCounter" value="6" />
     <servers />
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ID_ORDER">
+      <list>
+        <option value="Default.Root" />
+        <option value="Default.Author" />
+        <option value="Default.Date" />
+        <option value="Default.Subject" />
+        <option value="Space.CommitStatus" />
+      </list>
+    </option>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -192,12 +189,25 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Creating Intros" />
-    <MESSAGE value="adding more art" />
-    <MESSAGE value="Organizing project" />
-    <MESSAGE value="Added outros and other minor stuff" />
-    <MESSAGE value="added more ascii art" />
-    <MESSAGE value="added resources folders" />
-    <MESSAGE value="added first version of readFile method" />
-    <option name="LAST_COMMIT_MESSAGE" value="added first version of readFile method" />
+    <MESSAGE value="updated Knight" />
+    <MESSAGE value="updated Game" />
+    <MESSAGE value="merged show map and choosing character" />
+    <MESSAGE value="implemented players choosing message at the same time" />
+    <option name="LAST_COMMIT_MESSAGE" value="implemented players choosing message at the same time" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/src/academy/mindswap/Server/Server.java</url>
+          <line>54</line>
+          <properties class="academy.mindswap.Server.Server">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
