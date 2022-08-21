@@ -1,14 +1,18 @@
 package academy.mindswap.ServerElements;
 
-import academy.mindswap.ServerElements.ClientHandler;
+import academy.mindswap.ServerElements.GameElements.CharactersAndMonsters.CharactersAndMonsters;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.BadChest;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.EmptyRoom;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.Fairy;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
-import academy.mindswap.ServerElements.Server;
+import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
+import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Knight;
+import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Mage;
+import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -40,7 +44,7 @@ public class Game implements Runnable {
         player2Name = player2.getName();
         player3Name = player3.getName();
         this.server = server;
-        playersPosition = new int[]{0,0};
+        playersPosition = new int[]{0, 0};
         threadPool = Executors.newCachedThreadPool();
         createMap();
     }
@@ -114,10 +118,10 @@ public class Game implements Runnable {
         //TODO ask the players to choose the moving direction and vote, if the vote isn't unanimous they will move in a random direction
         //TODO if the players are on the edge of the map, they have to vote again
         //TODO check which type of obstacle is on the players position and act accordingly
-              //TODO if is a chest obstacle, the players have to vote to open it.
-              //TODO if is a fairy obstacle, all the players receive a boost in his health
-              //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
-              //TODO the players have to choose his action for the round
+        //TODO if is a chest obstacle, the players have to vote to open it.
+        //TODO if is a fairy obstacle, all the players receive a boost in his health
+        //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
+        //TODO the players have to choose his action for the round
         //TODO show the players the character stats
         //TODO show the players the map and repeat until they move to the final boss room
 
@@ -125,20 +129,37 @@ public class Game implements Runnable {
             @Override
             public void run() {
                 createMap();
-            }
-        });
-        chooseCharacters();
+                player1Character = chooseCharacter(player1);
+                player2Character = chooseCharacter(player2);
+                player3Character = chooseCharacter(player3);
+                showMap();
+                playGame();
+                askToPlayAgain();
+    }
+
+
+    public Character chooseCharacter(ClientHandler clientHandler) {
+        String characterNumber ="";
         try {
-            threadPool.awaitTermination(5, TimeUnit.MINUTES);
-        } catch (InterruptedException e) {
+            clientHandler.sendMessage("Choose you character from the above:");
+            clientHandler.sendMessage("1.Mage  2.Knight 3.Squire \n please insert the number of the character");
+            characterNumber = clientHandler.readMessage();
+
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        showMap();
-        playGame();
-        askToPlayAgain();
+        try {
+            switch (characterNumber){
+                case "1": return new Mage();
+                case "2": return new Knight();
+                case "3": return new Squire();
+                default: chooseCharacter(clientHandler);
+            }
+
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
-
-
     }
 }
+
 
