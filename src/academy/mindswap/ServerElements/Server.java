@@ -41,7 +41,7 @@ public class Server {
                 System.out.println("Waiting for players");
                 clientHandler = new ClientHandler(serverSocket.accept());
                 welcomeMessage(clientHandler);
-                clientHandler.sendMessage("Welcome to the server\n Please enter your name");
+                clientHandler.sendMessage("Welcome to the server\nPlease enter your name");
                 clientHandler.setName(clientHandler.readMessage());
                 clientHandler.sendMessage("Welcome" + " to the server " + clientHandler.getName());
                 clientHandler.sendMessage("waiting for other players");
