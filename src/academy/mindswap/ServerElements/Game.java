@@ -147,11 +147,13 @@ public class Game implements Runnable {
 
         createMap();
         playersChooseCharacters();
-
-
-        showMap();
-                //playGame();
+        playGame();
                 //askToPlayAgain();
+    }
+
+    private void playGame() {
+
+
     }
 
 
