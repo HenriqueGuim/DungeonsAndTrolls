@@ -41,9 +41,9 @@ public class Server {
                 System.out.println("Waiting for players");
                 clientHandler = new ClientHandler(serverSocket.accept());
                 welcomeMessage(clientHandler);
-                clientHandler.sendMessage("Welcome to the server\n Please enter your name");
+                clientHandler.sendMessage("Welcome to the server\nPlease enter your name");
                 clientHandler.setName(clientHandler.readMessage());
-                clientHandler.sendMessage("Welcome" + " to the server " + clientHandler.getName());
+                clientHandler.sendMessage("Welcome to the server " + clientHandler.getName());
                 clientHandler.sendMessage("waiting for other players");
                 clientsList.add(clientHandler);
                 System.out.println("Player " + clientHandler.getName() + " has joined the server");
@@ -82,7 +82,8 @@ public class Server {
             System.out.println("starting a new game");
             clientsList.forEach(client -> {
                 try {
-                    client.sendMessage("starting a new game");
+                    client.sendMessage("starting a new game \n");
+                    client.startGame();
                 } catch (IOException e) {
                         clientsList.remove(client);
                 }

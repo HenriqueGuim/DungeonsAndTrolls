@@ -7,11 +7,12 @@ import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.E
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.Fairy;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
 
 public class Game implements Runnable {
     private ClientHandler player1;
@@ -51,7 +52,6 @@ public class Game implements Runnable {
         map[5][5].visitRoom();
 
         LinkedList<Obstacle> obstaclesList = new LinkedList<>(createObstacles());
-
 
         for (int i = 0; i < map.length; i++) {
             for (int j = 0; j < map[i].length; j++) {
@@ -102,10 +102,10 @@ public class Game implements Runnable {
         Collections.shuffle(obstaclesList);
         return obstaclesList;
     }
-
-
+    
     public void showMap(){
-        try {
+        broadcast("\033[1;32m" + "::::::::MAP::::::::" + "\033[0m");
+
         for (int i = 0; i < 6; i++) {
             String message = "";
             for (int j = 0; j < 6; j++) {
@@ -117,15 +117,34 @@ public class Game implements Runnable {
                     message = message.concat("[" + map[i][j].getMAP_IDENTIFIER() + "]" );
                 }
             }
+            broadcast(message);
+        }
+    }
+
+    public void broadcast(String message){
+        try {
             player1.sendMessage(message);
             player2.sendMessage(message);
             player3.sendMessage(message);
-        }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
 
+    public String readFile(String filePath){
+        try {
+        BufferedReader reader = null;
+        reader = new BufferedReader(new FileReader(filePath));
+        String finalMessage = "";
+        String message;
+        while((message = reader.readLine()) != null){
+            finalMessage += message + "\n";
+        }
+        return finalMessage;
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     @Override
     public void run() {
@@ -146,6 +165,7 @@ public class Game implements Runnable {
         //TODO show the players the map and repeat until they move to the final boss room
 
         createMap();
+        broadcast(readFile("resources/Narrator/Intro.txt"));
         showMap();
         // chooseCharacters();
         // playGame();

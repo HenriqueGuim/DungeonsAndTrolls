@@ -54,6 +54,7 @@ public class ClientHandler {
     }
     public void startGame(){
         isPlaying = true;
+
     }
     public void endGame(){
         isPlaying = false;
