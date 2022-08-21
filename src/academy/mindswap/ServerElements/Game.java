@@ -107,6 +107,27 @@ public class Game implements Runnable {
         Collections.shuffle(obstaclesList);
         return obstaclesList;
     }
+    public void showMap(){
+        try {
+            for (int i = 0; i < 6; i++) {
+                String message = "";
+                for (int j = 0; j < 6; j++) {
+                    if(i == playersPosition[0] && j ==playersPosition[1]) {
+                        message = message.concat("\033[42m" + "[" + map[i][j].getMAP_IDENTIFIER() + "]" + "\033[0m");
+                    }
+                    else
+                    {
+                        message = message.concat("[" + map[i][j].getMAP_IDENTIFIER() + "]" );
+                    }
+                }
+                player1.sendMessage(message);
+                player2.sendMessage(message);
+                player3.sendMessage(message);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
 
     @Override
@@ -125,16 +146,13 @@ public class Game implements Runnable {
         //TODO show the players the character stats
         //TODO show the players the map and repeat until they move to the final boss room
 
-        threadPool.submit(new Runnable() {
-            @Override
-            public void run() {
                 createMap();
                 player1Character = chooseCharacter(player1);
                 player2Character = chooseCharacter(player2);
                 player3Character = chooseCharacter(player3);
                 showMap();
-                playGame();
-                askToPlayAgain();
+                //playGame();
+                //askToPlayAgain();
     }
 
 
@@ -142,7 +160,7 @@ public class Game implements Runnable {
         String characterNumber ="";
         try {
             clientHandler.sendMessage("Choose you character from the above:");
-            clientHandler.sendMessage("1.Mage  2.Knight 3.Squire \n please insert the number of the character");
+            clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
             characterNumber = clientHandler.readMessage();
 
         } catch (IOException e) {
@@ -159,6 +177,7 @@ public class Game implements Runnable {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 }
 
