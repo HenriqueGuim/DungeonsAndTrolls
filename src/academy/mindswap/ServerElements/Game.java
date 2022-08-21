@@ -34,7 +34,7 @@ public class Game implements Runnable {
     private Server server;
     private Obstacle[][] map;
     private int[] playersPosition;
-    private ExecutorService threadPool;
+
 
     public Game(ClientHandler[] clientHandlers, Server server) {
         player1 = clientHandlers[0];
@@ -45,7 +45,6 @@ public class Game implements Runnable {
         player3Name = player3.getName();
         this.server = server;
         playersPosition = new int[]{0, 0};
-        threadPool = Executors.newCachedThreadPool();
         createMap();
     }
 
@@ -146,11 +145,11 @@ public class Game implements Runnable {
         //TODO show the players the character stats
         //TODO show the players the map and repeat until they move to the final boss room
 
-                createMap();
-                player1Character = chooseCharacter(player1);
-                player2Character = chooseCharacter(player2);
-                player3Character = chooseCharacter(player3);
-                showMap();
+        createMap();
+        playersChooseCharacters();
+
+
+        showMap();
                 //playGame();
                 //askToPlayAgain();
     }
@@ -178,6 +177,39 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
         return null;
+    }
+    private void playersChooseCharacters() {
+        Thread thread1 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                player1Character = chooseCharacter(player1);
+            }
+        });
+
+        Thread thread2 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                player2Character = chooseCharacter(player2);
+                Thread.currentThread().interrupt();
+            }
+        });
+        Thread thread3 = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                player3Character = chooseCharacter(player3);
+                Thread.currentThread().interrupt();
+            }
+        });
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        try {
+            thread1.join();
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
 
