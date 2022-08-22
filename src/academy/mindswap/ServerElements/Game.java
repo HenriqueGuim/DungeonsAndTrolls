@@ -140,17 +140,9 @@ public class Game implements Runnable {
                 //askToPlayAgain();
     }
 
-    private void gameOver() {
-        //TODO
-
-    }
-
     private void startGame() {
         sendIntro();
         playGame();
-
-
-
     }
 
     private void playGame() {
@@ -165,10 +157,30 @@ public class Game implements Runnable {
         winGame();
 
     }
+    private void gameOver() {
+        try {
+            readFileRed("resources/Art/GameOver.txt");
+            Thread.sleep(50);
+            readFile("resources/Narrator/OutroLose.txt");
+            Thread.sleep(50);
+            broadcast("-".repeat(40));
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     private void winGame() {
-        broadcast(":::::::::::::::: VICTORY ::::::::::::::::");
-        broadcast("Congratulations! You won the game!");
+        try {
+            readFileGreen("resources/Art/YouWin");
+            Thread.sleep(50);
+            readFile("resources/Narrator/OutroWin.txt");
+            Thread.sleep(50);
+            broadcast("-".repeat(40));
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -223,7 +235,7 @@ public class Game implements Runnable {
     }
 
     private void introduceMonster(Monsters monsters) {
-        broadcast("You encounter a :" + monsters.getClass().getSimpleName());
+        broadcast("You encounter a " + monsters.getClass().getSimpleName());
 
     }
 
@@ -285,7 +297,6 @@ public class Game implements Runnable {
             gameOver();
         }
     }
-
 
     private void chooseMove() {
         broadcast("Choose your move from above!");
@@ -510,20 +521,26 @@ public class Game implements Runnable {
     }
 
 
+
     private void sendIntro() {
-        readFile();
-        broadcast("----------------------------------------------------");
+        try {
+            readFile("resources/Narrator/Intro.txt");
+            Thread.sleep(50);
+            broadcast("-".repeat(40));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void readFile() {
-        File file = new File("resources/Narrator/Intro.txt");
+    private void readFile(String path) {
+        File file = new File(path);
         String message = "";
         BufferedReader fileReader;
         try {
             fileReader = new BufferedReader(new FileReader(file));
             while ((message = fileReader.readLine()) != null) {
                 broadcast(message);
-                Thread.sleep(10);
+                Thread.sleep(50);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -532,7 +549,42 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
+    }
+    private void readFileGreen(String path) {
+        File file = new File(path);
+        String message = "";
+        BufferedReader fileReader;
+        try {
+            fileReader = new BufferedReader(new FileReader(file));
+            while ((message = fileReader.readLine()) != null) {
+                broadcast("\033[0;92m"+message+ "\033[0m");
+                Thread.sleep(50);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void readFileRed(String path) {
+        File file = new File(path);
+        String message = "";
+        BufferedReader fileReader;
+        try {
+            fileReader = new BufferedReader(new FileReader(file));
+            while ((message = fileReader.readLine()) != null) {
+                broadcast("\033[1;31m"+message+ "\033[0m");
+                Thread.sleep(50);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private void broadcast(String message) {
@@ -605,7 +657,7 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        broadcast("----------------------------------------------------");
+        broadcast("-".repeat(40));
     }
 }
 
