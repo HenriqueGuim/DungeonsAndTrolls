@@ -1,6 +1,5 @@
 package academy.mindswap.ServerElements;
 
-import academy.mindswap.ServerElements.GameElements.CharactersAndMonsters.CharactersAndMonsters;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.BadChest;
@@ -12,14 +11,8 @@ import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Knight;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Mage;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.TimeUnit;
+import java.io.*;
+import java.util.*;
 
 public class Game implements Runnable {
     private ClientHandler player1;
@@ -53,6 +46,8 @@ public class Game implements Runnable {
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
         map[0][0] = new EmptyRoom();
         map[5][5] = new FinalBoss();
+        map[0][0].visitRoom();
+        map[5][5].visitRoom();
 
         LinkedList<Obstacle> obstaclesList = new LinkedList<>(createObstacles());
 
@@ -68,7 +63,7 @@ public class Game implements Runnable {
 
     }
 
-    private Collection<? extends Obstacle> createObstacles() {
+    private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
         int trollNumber = 6;
@@ -107,25 +102,21 @@ public class Game implements Runnable {
         return obstaclesList;
     }
     public void showMap(){
-        try {
-            for (int i = 0; i < 6; i++) {
-                String message = "";
-                for (int j = 0; j < 6; j++) {
-                    if(i == playersPosition[0] && j ==playersPosition[1]) {
-                        message = message.concat("\033[42m" + "[" + map[i][j].getMAP_IDENTIFIER() + "]" + "\033[0m");
-                    }
-                    else
-                    {
-                        message = message.concat("[" + map[i][j].getMAP_IDENTIFIER() + "]" );
-                    }
+        broadcast("\033[1;31m" + "::::::::MAP::::::::" + "\033[0m");
+        for (int i = 0; i < 6; i++) {
+            String message = "";
+            for (int j = 0; j < 6; j++) {
+                if(i == playersPosition[0] && j ==playersPosition[1]) {
+                    message = message.concat("\033[42m" + "[" + map[i][j].getMAP_IDENTIFIER() + "]" + "\033[0m");
                 }
-                player1.sendMessage(message);
-                player2.sendMessage(message);
-                player3.sendMessage(message);
+                else
+                {
+                    message = message.concat("[" + map[i][j].getMAP_IDENTIFIER() + "]" );
+                }
             }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            broadcast(message);
         }
+        broadcast("You are at the position of " + "\033[42m" + "  " + "\033[0m" + " background.");
     }
 
 
@@ -147,16 +138,163 @@ public class Game implements Runnable {
 
         createMap();
         playersChooseCharacters();
-
-
-        showMap();
-                //playGame();
+        startGame();
                 //askToPlayAgain();
+    }
+
+    private void startGame() {
+        sendIntro();
+        playGame();
+
+
+
+    }
+
+    private void playGame() {
+        showMap();
+        voteToMove();
+        playGame();
+    }
+
+    private void voteToMove() {
+        broadcast("\033[1;31m" + "::::::::VOTE TO MOVE::::::::" + "\033[0m");
+        broadcast("You must vote to move in a direction.");
+        broadcast("Type 'N' to move north, 'S' to move south, 'E' to move east, 'W' to move west.");
+        move(countVotes());
+
+
+
+    }
+
+    private void move(char direction) {
+        switch (direction){
+            case 'N':
+                playersPosition[0]--;
+                break;
+            case 'S':
+                playersPosition[0]++;
+                break;
+            case 'E':
+                playersPosition[1]++;
+                break;
+            case 'W':
+                playersPosition[1]--;
+                break;
+        }
+        map[playersPosition[0]][playersPosition[1]].visitRoom();
+    }
+
+    private char countVotes() {
+        int[] votesCounter = new int[]{0, 0, 0, 0};
+
+        char[] votes = new char[3];
+
+        int deadPlayers = 0;
+
+        try {
+            votes[0] = player1.getVote();
+            votes[1] = player2.getVote();
+            votes[2] = player3.getVote();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        for (char x :votes) {
+            switch (x) {
+                case 'N':
+                    votesCounter[0]++;
+                    break;
+                case 'S':
+                    votesCounter[1]++;
+                    break;
+                case 'E':
+                    votesCounter[2]++;
+                    break;
+                case 'W':
+                    votesCounter[3]++;
+                    break;
+                default:deadPlayers++;
+                    break;
+            }
+        }
+
+        int max = -1;
+
+        if(deadPlayers < 2) {
+        for (int i = 0; i < votesCounter.length; i++) {
+                if(votesCounter[i] >= 2)
+                max = i;
+            }
+        }
+
+        if(max == -1) {
+            max = randomDirection();
+        }
+
+        return checkIfEdge(max);
+       }
+
+    private char checkIfEdge(int direction) {
+        if(direction == 0 && playersPosition[0] !=0){
+            return 'N';
+        }
+        else if(direction == 1 && playersPosition[0] != 5){
+            return 'S';
+        }
+        else if(direction == 2 && playersPosition[1] != 0){
+            return 'E';
+        }
+        else if(direction == 3 && playersPosition[1] != 5){
+            return 'W';
+        }
+
+        return checkIfEdge(randomDirection());
+    }
+
+    private int randomDirection() {
+        return new Random().nextInt(4);
+    }
+
+
+    private void sendIntro() {
+        readFile();
+        broadcast("----------------------------------------------------");
+    }
+
+    private void readFile() {
+        File file = new File("resources/Narrator/Intro.txt");
+        String message = "";
+        BufferedReader fileReader;
+        try {
+            fileReader = new BufferedReader(new FileReader(file));
+            while ((message = fileReader.readLine()) != null) {
+                broadcast(message);
+                Thread.sleep(10);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void broadcast(String message) {
+        try {
+            player1.sendMessage(message);
+            player2.sendMessage(message);
+            player3.sendMessage(message);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
     public Character chooseCharacter(ClientHandler clientHandler) {
         String characterNumber ="";
+        Character character = null;
         try {
             clientHandler.sendMessage("Choose you character from the above:");
             clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
@@ -167,22 +305,25 @@ public class Game implements Runnable {
         }
         try {
             switch (characterNumber){
-                case "1": return new Mage();
-                case "2": return new Knight();
-                case "3": return new Squire();
-                default: chooseCharacter(clientHandler);
+                case "1": character = new Mage();
+                break;
+                case "2": character= new Knight();
+                break;
+                case "3": character = new Squire();
+                break;
+                default: character = chooseCharacter(clientHandler);
             }
-
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return character;
     }
     private void playersChooseCharacters() {
         Thread thread1 = new Thread(new Runnable() {
             @Override
             public void run() {
                 player1Character = chooseCharacter(player1);
+                player1.setCharacter(player1Character);
             }
         });
 
@@ -190,14 +331,14 @@ public class Game implements Runnable {
             @Override
             public void run() {
                 player2Character = chooseCharacter(player2);
-                Thread.currentThread().interrupt();
+                player2.setCharacter(player2Character);
             }
         });
         Thread thread3 = new Thread(new Runnable() {
             @Override
             public void run() {
                 player3Character = chooseCharacter(player3);
-                Thread.currentThread().interrupt();
+                player3.setCharacter(player3Character);
             }
         });
         thread1.start();
@@ -210,6 +351,7 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        broadcast("----------------------------------------------------");
     }
 }
 
