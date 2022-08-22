@@ -141,10 +141,7 @@ public class Game implements Runnable {
         voteToMove();
         handleRoom();
         sendStatus();
-        playGame();
-        if(!checkIfBossDefeated()){
-            playGame();
-        }
+        if(!checkIfBossDefeated()){playGame();}
         winGame();
     }
     private void gameOver() {
@@ -216,10 +213,19 @@ public class Game implements Runnable {
     }
     private void introduceMonster(Monsters monsters) {
         broadcast("You encounter a " + monsters.getClass().getSimpleName());
-        // switch( monsters.getClass() )
-        // case Slime -> readFileRed("resources/Art/Slime.txt")
-        // case ...
-
+        String monsterFile = "";
+        if (Slime.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Slime.txt";
+        } if (Goblin.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Goblin.txt";
+        } if (Troll.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Troll.txt";
+        } if (MiniBoss.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/MiniBoss";
+        } if (FinalBoss.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Boss";
+        }
+        readFileRed(monsterFile);
     }
     private void fight() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
@@ -277,7 +283,7 @@ public class Game implements Runnable {
         }
     }
     private void chooseMove() {
-        broadcast("Choose your move from above!");
+        broadcast("Choose your move from list bellow:");
         broadcast("1. Attack 2. Dodge 3. Defend");
         playersChooseMove();
     }
@@ -616,5 +622,3 @@ public class Game implements Runnable {
         broadcast("-".repeat(40));
     }
 }
-
-
