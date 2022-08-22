@@ -2,10 +2,7 @@ package academy.mindswap.ServerElements;
 
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.BadChest;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.EmptyRoom;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.Fairy;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
+import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.*;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Knight;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Mage;
@@ -153,8 +150,140 @@ public class Game implements Runnable {
     private void playGame() {
         showMap();
         voteToMove();
+        handleRoom();
         playGame();
     }
+
+    private void handleRoom() {
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == EmptyRoom.class) {
+            handleEmptyRoom();
+            return;
+        }
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == Monsters.class) {
+            //handleMonster();
+            map[playersPosition[0]][playersPosition[1]].visitRoom();
+            return;
+        }
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class || map[playersPosition[0]][playersPosition[1]].getClass() == BadChest.class) {
+            handleChest();
+            return;
+        }
+        
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == Fairy.class) {
+            handleFairy();
+            return;
+        }
+    }
+
+    private void handleChest() {
+        broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
+        Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
+        if(!chest.isOpen()) {
+            try {
+                countChestVotes();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+        broadcast("The chest is already open.");
+    }
+
+    private void countChestVotes() throws IOException {
+        int openChestVotes = 0;
+        int dontOpenChestVotes = 0;
+
+        broadcast("Please vote to open the chest or not with the commands: 'yes' to open or 'no' to not open.");
+        if(player1.getChestVote() == 'y'){
+            openChestVotes++;
+        }
+        else{
+            dontOpenChestVotes++;
+        }
+        if(player2.getChestVote() == 'y'){
+            openChestVotes++;
+        }
+        else{
+            dontOpenChestVotes++;
+        }
+        if(player3.getChestVote() == 'y'){
+            openChestVotes++;
+        }
+        else{
+            dontOpenChestVotes++;
+        }
+
+        if (openChestVotes > dontOpenChestVotes) {
+            openChest();
+            return;
+        }
+
+        dontOpenChest();
+    }
+
+    private void dontOpenChest() {
+        broadcast("The chest remains closed.");
+    }
+
+    private void openChest() {
+        broadcast("The chest is open!");
+        broadcast("you have found a warm meal!\nYou ate it.");
+        Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
+        chest.open();
+        if(map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class){
+            broadcast("you have got a boost in your health!");
+            player1Character.increaseHealth(chest.getHealthModifier());
+            player2Character.increaseHealth(chest.getHealthModifier());
+            player3Character.increaseHealth(chest.getHealthModifier());
+            return;
+        }
+
+        broadcast("The meal was spoiled! you lose some health!");
+        player1Character.decreaseHealth(chest.getHealthModifier());
+        player2Character.decreaseHealth(chest.getHealthModifier());
+        player3Character.decreaseHealth(chest.getHealthModifier());
+
+    }
+
+    private void handleFairy() {
+        Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
+        if(!fairy.hasCured()){
+            fairy.visitRoom();
+            broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
+            broadcast("\033[1;31m" + "You have been healed by " + fairy.getHealthModifier() + " points!" + "\033[0m");
+            
+            player1Character.increaseHealth(fairy.getHealthModifier());
+            player2Character.increaseHealth(fairy.getHealthModifier());
+            player3Character.increaseHealth(fairy.getHealthModifier());
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            fairy.cure();
+            return;
+        }
+
+        broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
+        broadcast("But already have healed you once!");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void handleEmptyRoom() {
+        EmptyRoom emptyRoom = (EmptyRoom) map[playersPosition[0]][playersPosition[1]];
+        broadcast(emptyRoom.getRoomMessage());
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     private void voteToMove() {
         broadcast("\033[1;31m" + "::::::::VOTE TO MOVE::::::::" + "\033[0m");
@@ -192,9 +321,9 @@ public class Game implements Runnable {
         int deadPlayers = 0;
 
         try {
-            votes[0] = player1.getVote();
-            votes[1] = player2.getVote();
-            votes[2] = player3.getVote();
+            votes[0] = player1.getMoveVote();
+            votes[1] = player2.getMoveVote();
+            votes[2] = player3.getMoveVote();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -241,10 +370,10 @@ public class Game implements Runnable {
         else if(direction == 1 && playersPosition[0] != 5){
             return 'S';
         }
-        else if(direction == 2 && playersPosition[1] != 0){
+        else if(direction == 2 && playersPosition[1] != 5){
             return 'E';
         }
-        else if(direction == 3 && playersPosition[1] != 5){
+        else if(direction == 3 && playersPosition[1] != 0){
             return 'W';
         }
 

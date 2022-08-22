@@ -67,7 +67,7 @@ public class ClientHandler {
         isPlaying = false;
     }
 
-    public char getVote() throws IOException {
+    public char getMoveVote() throws IOException {
         if (character.isDead()){
             return ' ';
         }
@@ -89,12 +89,25 @@ public class ClientHandler {
         }
         sendMessage("Invalid vote entered. Please enter a valid vote.");
 
-        return getVote();
+        return getMoveVote();
+    }
+    public char getChestVote() throws IOException {
+        if (character.isDead()){
+            return ' ';
+        }
 
+        String message = null;
+        message = readMessage();
 
+        if(message.trim().equalsIgnoreCase("yes")){
+            return 'y';
+        }
+        if(message.trim().equalsIgnoreCase("no")){
+            return 'n';
+        }
 
+        sendMessage("Invalid vote entered. Please enter a valid vote.");
 
-
-
+        return getChestVote();
     }
 }
