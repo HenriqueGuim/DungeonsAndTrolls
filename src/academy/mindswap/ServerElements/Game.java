@@ -1,5 +1,6 @@
 package academy.mindswap.ServerElements;
 
+import academy.mindswap.ServerElements.GameElements.GameInterfaces.Attackable;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.*;
@@ -139,6 +140,11 @@ public class Game implements Runnable {
                 //askToPlayAgain();
     }
 
+    private void gameOver() {
+        //TODO
+
+    }
+
     private void startGame() {
         sendIntro();
         playGame();
@@ -151,29 +157,148 @@ public class Game implements Runnable {
         showMap();
         voteToMove();
         handleRoom();
+        sendStatus();
         playGame();
+        if(!checkIfBossDefeated()){
+            playGame();
+        }
+        winGame();
+
     }
+
+    private void winGame() {
+        broadcast(":::::::::::::::: VICTORY ::::::::::::::::");
+        broadcast("Congratulations! You won the game!");
+    }
+
 
     private void handleRoom() {
         if (map[playersPosition[0]][playersPosition[1]].getClass() == EmptyRoom.class) {
             handleEmptyRoom();
             return;
         }
-        if (map[playersPosition[0]][playersPosition[1]].getClass() == Monsters.class) {
-            //handleMonster();
-            map[playersPosition[0]][playersPosition[1]].visitRoom();
+        if (map[playersPosition[0]][playersPosition[1]] instanceof Attackable) {
+            handleMonster();
             return;
         }
-        if (map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class || map[playersPosition[0]][playersPosition[1]].getClass() == BadChest.class) {
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == Chest.class) {
             handleChest();
             return;
         }
-        
+
         if (map[playersPosition[0]][playersPosition[1]].getClass() == Fairy.class) {
             handleFairy();
             return;
         }
     }
+
+    private void handleMonster() {
+        Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
+        if(monster.isDead()){
+            introDeadMonster(monster);
+            return;
+        }
+        introduceMonster(monster);
+        fight();
+        monsterDefeated();
+
+    }
+
+    private boolean checkIfBossDefeated() {
+        Monsters finalBoss = (Monsters) map[5][5];
+        if (finalBoss.isDead()) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private void monsterDefeated() {
+        broadcast("Well done! You destroyed the monster");
+
+    }
+
+    private void introDeadMonster(Monsters monster) {
+        broadcast ("You encounter a dead " + monster.getClass().getSimpleName());
+    }
+
+    private void introduceMonster(Monsters monsters) {
+        broadcast("You encounter a :" + monsters.getClass().getSimpleName());
+
+    }
+
+    private void fight() {
+        Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
+        chooseMove();
+        monsterAttack(monster);
+
+        monster.defend(player1Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        monster.defend(player2Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        monster.defend(player3Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        sendStatus();
+        fight();
+    }
+
+    private void sendStatus() {
+        try {
+            player1.sendMessage("STATUS: " + player1Character.getHealth()+ " HP");
+            player2.sendMessage("STATUS: " + player2Character.getHealth()+ " HP");
+            player3.sendMessage("STATUS: " + player3Character.getHealth()+ " HP");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private void monsterAttack(Monsters monster) {
+        Character playerToAttack = player1Character;
+
+
+        if (playerToAttack.getHealth() > player2Character.getHealth()) {
+            playerToAttack = player2Character;
+        }
+        if (playerToAttack.getHealth() > player3Character.getHealth()) {
+            playerToAttack = player3Character;
+        }
+        playerToAttack.sufferAttack(monster.getDamage());
+
+        checkIfDead(playerToAttack);
+    }
+
+    private void checkIfDead(Character playerToAttack) {
+        if (playerToAttack.isDead()) {
+            playerToAttack.die();
+        }
+        if(player1Character.isDead()&& player2Character.isDead() && player3Character.isDead()){
+            gameOver();
+        }
+    }
+
+
+    private void chooseMove() {
+        broadcast("Choose your move from above!");
+        broadcast("1. Attack 2. Dodge 3. Defend");
+        playersChooseMove();
+    }
+
+    private void playersChooseMove() {
+        player1.chooseMove();
+        player2.chooseMove();
+        player3.chooseMove();
+    }
+
 
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");

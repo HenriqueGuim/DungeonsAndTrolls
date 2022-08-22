@@ -22,4 +22,8 @@ public abstract class Monsters extends Obstacle implements Attackable{
     public boolean isDead() {return health <= 0;}
     public int getHealth() {return health;}
     public int getDamage() { return damage; }
+
+    public void defend(int damage) {
+        decreaseHealth(damage);
+    }
 }

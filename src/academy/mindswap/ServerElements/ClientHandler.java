@@ -110,4 +110,20 @@ public class ClientHandler {
 
         return getChestVote();
     }
+
+    public void chooseMove() {
+        String message = null;
+        try {
+            message = readMessage();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        if (message.equals("2")){
+            character.chooseDodge();
+        }
+        if(message.equals("3")){
+            character.chooseDefend();
+        }
+    }
 }
