@@ -8,7 +8,6 @@ import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Knight;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Mage;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
-
 import java.io.*;
 import java.util.*;
 
@@ -25,8 +24,6 @@ public class Game implements Runnable {
     private Server server;
     private Obstacle[][] map;
     private int[] playersPosition;
-
-
     public Game(ClientHandler[] clientHandlers, Server server) {
         player1 = clientHandlers[0];
         player2 = clientHandlers[1];
@@ -38,7 +35,6 @@ public class Game implements Runnable {
         playersPosition = new int[]{0, 0};
         createMap();
     }
-
     private void createMap() {
 
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
@@ -60,7 +56,6 @@ public class Game implements Runnable {
 
 
     }
-
     private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
@@ -116,8 +111,6 @@ public class Game implements Runnable {
         }
         broadcast("You are at the position of " + "\033[42m" + "  " + "\033[0m" + " background.");
     }
-
-
     @Override
     public void run() {
 
@@ -139,12 +132,10 @@ public class Game implements Runnable {
         startGame();
                 //askToPlayAgain();
     }
-
     private void startGame() {
         sendIntro();
         playGame();
     }
-
     private void playGame() {
         showMap();
         voteToMove();
@@ -155,35 +146,31 @@ public class Game implements Runnable {
             playGame();
         }
         winGame();
-
     }
     private void gameOver() {
         try {
             readFileRed("resources/Art/GameOver.txt");
-            Thread.sleep(50);
+            Thread.sleep(500);
             readFile("resources/Narrator/OutroLose.txt");
-            Thread.sleep(50);
+            Thread.sleep(500);
             broadcast("-".repeat(40));
-            Thread.sleep(50);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
     private void winGame() {
         try {
             readFileGreen("resources/Art/YouWin");
-            Thread.sleep(50);
+            Thread.sleep(500);
             readFile("resources/Narrator/OutroWin.txt");
-            Thread.sleep(50);
+            Thread.sleep(500);
             broadcast("-".repeat(40));
-            Thread.sleep(50);
+            Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-
     private void handleRoom() {
         if (map[playersPosition[0]][playersPosition[1]].getClass() == EmptyRoom.class) {
             handleEmptyRoom();
@@ -203,7 +190,6 @@ public class Game implements Runnable {
             return;
         }
     }
-
     private void handleMonster() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         if(monster.isDead()){
@@ -215,7 +201,6 @@ public class Game implements Runnable {
         monsterDefeated();
 
     }
-
     private boolean checkIfBossDefeated() {
         Monsters finalBoss = (Monsters) map[5][5];
         if (finalBoss.isDead()) {
@@ -223,22 +208,19 @@ public class Game implements Runnable {
         }
         return false;
     }
-
-
     private void monsterDefeated() {
-        broadcast("Well done! You destroyed the monster");
-
+        broadcast("Well done! You destroyed the monster.");
     }
-
     private void introDeadMonster(Monsters monster) {
         broadcast ("You encounter a dead " + monster.getClass().getSimpleName());
     }
-
     private void introduceMonster(Monsters monsters) {
         broadcast("You encounter a " + monsters.getClass().getSimpleName());
+        // switch( monsters.getClass() )
+        // case Slime -> readFileRed("resources/Art/Slime.txt")
+        // case ...
 
     }
-
     private void fight() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         chooseMove();
@@ -262,7 +244,6 @@ public class Game implements Runnable {
         sendStatus();
         fight();
     }
-
     private void sendStatus() {
         try {
             player1.sendMessage("STATUS: " + player1Character.getHealth()+ " HP");
@@ -273,7 +254,6 @@ public class Game implements Runnable {
         }
 
     }
-
     private void monsterAttack(Monsters monster) {
         Character playerToAttack = player1Character;
 
@@ -288,7 +268,6 @@ public class Game implements Runnable {
 
         checkIfDead(playerToAttack);
     }
-
     private void checkIfDead(Character playerToAttack) {
         if (playerToAttack.isDead()) {
             playerToAttack.die();
@@ -297,20 +276,16 @@ public class Game implements Runnable {
             gameOver();
         }
     }
-
     private void chooseMove() {
         broadcast("Choose your move from above!");
         broadcast("1. Attack 2. Dodge 3. Defend");
         playersChooseMove();
     }
-
     private void playersChooseMove() {
         player1.chooseMove();
         player2.chooseMove();
         player3.chooseMove();
     }
-
-
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
@@ -324,7 +299,6 @@ public class Game implements Runnable {
         }
         broadcast("The chest is already open.");
     }
-
     private void countChestVotes() throws IOException {
         int openChestVotes = 0;
         int dontOpenChestVotes = 0;
@@ -356,11 +330,9 @@ public class Game implements Runnable {
 
         dontOpenChest();
     }
-
     private void dontOpenChest() {
         broadcast("The chest remains closed.");
     }
-
     private void openChest() {
         broadcast("The chest is open!");
         broadcast("you have found a warm meal!\nYou ate it.");
@@ -380,7 +352,6 @@ public class Game implements Runnable {
         player3Character.decreaseHealth(chest.getHealthModifier());
 
     }
-
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
         if(!fairy.hasCured()){
@@ -399,7 +370,6 @@ public class Game implements Runnable {
             fairy.cure();
             return;
         }
-
         broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
         broadcast("But already have healed you once!");
         try {
@@ -409,18 +379,15 @@ public class Game implements Runnable {
         }
 
     }
-
     private void handleEmptyRoom() {
         EmptyRoom emptyRoom = (EmptyRoom) map[playersPosition[0]][playersPosition[1]];
         broadcast(emptyRoom.getRoomMessage());
         try {
-            Thread.sleep(3000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
     }
-
-
     private void voteToMove() {
         broadcast("\033[1;31m" + "::::::::VOTE TO MOVE::::::::" + "\033[0m");
         broadcast("You must vote to move in a direction.");
@@ -430,7 +397,6 @@ public class Game implements Runnable {
 
 
     }
-
     private void move(char direction) {
         switch (direction){
             case 'N':
@@ -448,7 +414,6 @@ public class Game implements Runnable {
         }
         map[playersPosition[0]][playersPosition[1]].visitRoom();
     }
-
     private char countVotes() {
         int[] votesCounter = new int[]{0, 0, 0, 0};
 
@@ -498,7 +463,6 @@ public class Game implements Runnable {
 
         return checkIfEdge(max);
        }
-
     private char checkIfEdge(int direction) {
         if(direction == 0 && playersPosition[0] !=0){
             return 'N';
@@ -515,13 +479,9 @@ public class Game implements Runnable {
 
         return checkIfEdge(randomDirection());
     }
-
     private int randomDirection() {
         return new Random().nextInt(4);
     }
-
-
-
     private void sendIntro() {
         try {
             readFile("resources/Narrator/Intro.txt");
@@ -531,7 +491,6 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
     private void readFile(String path) {
         File file = new File(path);
         String message = "";
@@ -586,7 +545,6 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
     private void broadcast(String message) {
         try {
             player1.sendMessage(message);
@@ -596,8 +554,6 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
-
-
     public Character chooseCharacter(ClientHandler clientHandler) {
         String characterNumber ="";
         Character character = null;
