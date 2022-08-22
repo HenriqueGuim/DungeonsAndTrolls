@@ -65,7 +65,7 @@ public class Server {
         }
     }
 
-    private void connectPlayers() {
+    void connectPlayers() {
         ClientHandler[] clientHandlers = new ClientHandler[3];
         int playerCount = 0;
 
@@ -81,11 +81,7 @@ public class Server {
         if (playerCount == 3) {
             System.out.println("starting a new game");
             clientsList.forEach(client -> {
-                try {
-                    client.sendMessage("starting a new game");
-                } catch (IOException e) {
-                        clientsList.remove(client);
-                }
+                client.sendMessage("starting a new game");
             });
             Game game = new Game(clientHandlers, this);
             threadPool.submit(game);

@@ -33,7 +33,9 @@ public class Game implements Runnable {
         player3Name = player3.getName();
         this.server = server;
         playersPosition = new int[]{0, 0};
-        createMap();
+        player1.startGame();
+        player2.startGame();
+        player3.startGame();
     }
     private void createMap() {
 
@@ -132,6 +134,14 @@ public class Game implements Runnable {
         startGame();
                 //askToPlayAgain();
     }
+
+    private void gameOver() {
+        //TODO
+
+        verifyIfWantToPlay();
+
+    }
+
     private void startGame() {
         sendIntro();
         playGame();
@@ -141,7 +151,10 @@ public class Game implements Runnable {
         voteToMove();
         handleRoom();
         sendStatus();
-        if(!checkIfBossDefeated()){playGame();}
+
+        if(!checkIfBossDefeated()){
+            playGame();
+        }
         winGame();
     }
     private void gameOver() {
@@ -157,6 +170,7 @@ public class Game implements Runnable {
         }
     }
     private void winGame() {
+
         try {
             readFileGreen("resources/Art/YouWin");
             Thread.sleep(500);
@@ -166,6 +180,40 @@ public class Game implements Runnable {
             Thread.sleep(500);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
+        }
+        verifyIfWantToPlay();
+    }
+
+    private void verifyIfWantToPlay() {
+        broadcast("Want to continue playing?");
+        Thread thread1 = new Thread(()->endGameResponse(player1));
+        Thread thread2 = new Thread(()->endGameResponse(player2));
+        Thread thread3 = new Thread(()->endGameResponse(player3));
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        try {
+            thread1.join();
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Thread.currentThread().interrupt();
+    }
+    private void endGameResponse(ClientHandler player) {
+        String response = player.readMessage();
+        response.toLowerCase();
+        switch (response){
+            case "yes": player.sendMessage("Wait while we search for a new opponent");
+                player.endGame();
+                server.connectPlayers();
+                return;
+            case "no": player.sendMessage("Thank you for playing with us.");
+                server.clientsList.remove(player);
+                return;
+            default: player.sendMessage("Please insert a valid message: Yes or No");
+                endGameResponse(player);
         }
     }
     private void handleRoom() {
@@ -177,7 +225,7 @@ public class Game implements Runnable {
             handleMonster();
             return;
         }
-        if (map[playersPosition[0]][playersPosition[1]].getClass() == Chest.class) {
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class || map[playersPosition[0]][playersPosition[1]].getClass() == BadChest.class){
             handleChest();
             return;
         }
@@ -226,6 +274,7 @@ public class Game implements Runnable {
             monsterFile = "resources/Art/Boss";
         }
         readFileRed(monsterFile);
+
     }
     private void fight() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
@@ -251,28 +300,26 @@ public class Game implements Runnable {
         fight();
     }
     private void sendStatus() {
-        try {
             player1.sendMessage("STATUS: " + player1Character.getHealth()+ " HP");
             player2.sendMessage("STATUS: " + player2Character.getHealth()+ " HP");
             player3.sendMessage("STATUS: " + player3Character.getHealth()+ " HP");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
     }
     private void monsterAttack(Monsters monster) {
-        Character playerToAttack = player1Character;
+        ClientHandler playerToAttack;
+        if (!player1.getCharacter().isDead()){playerToAttack = player1;} else if (!player2.getCharacter().isDead())
+        {playerToAttack = player2;} else {playerToAttack = player3;}
 
 
-        if (playerToAttack.getHealth() > player2Character.getHealth()) {
-            playerToAttack = player2Character;
+        if (playerToAttack.getCharacter().getHealth() > player2Character.getHealth() && !player2Character.isDead()) {
+            playerToAttack = player2;
         }
-        if (playerToAttack.getHealth() > player3Character.getHealth()) {
-            playerToAttack = player3Character;
+        if (playerToAttack.getCharacter().getHealth() > player3Character.getHealth() && !player3Character.isDead()) {
+            playerToAttack = player3;
         }
-        playerToAttack.sufferAttack(monster.getDamage());
 
-        checkIfDead(playerToAttack);
+        broadcast(monster.getClass().getSimpleName() + " Attack " + playerToAttack.getName());
+        playerToAttack.getCharacter().sufferAttack(monster.getDamage());
+        checkIfDead(playerToAttack.getCharacter());
     }
     private void checkIfDead(Character playerToAttack) {
         if (playerToAttack.isDead()) {
@@ -310,28 +357,36 @@ public class Game implements Runnable {
         int dontOpenChestVotes = 0;
 
         broadcast("Please vote to open the chest or not with the commands: 'yes' to open or 'no' to not open.");
-        if(player1.getChestVote() == 'y'){
-            openChestVotes++;
-        }
-        else{
+       if(!player1Character.isDead()){
+           if(player1.getChestVote() == 'y'){
+               openChestVotes++;
+           }
+           else{
+               dontOpenChestVotes++;
+           }
+       }
+       if (!player2Character.isDead()){
+            if(player2.getChestVote() == 'y'){
+             openChestVotes++;
+            }
+            else{
             dontOpenChestVotes++;
+            }
         }
-        if(player2.getChestVote() == 'y'){
-            openChestVotes++;
-        }
-        else{
-            dontOpenChestVotes++;
-        }
-        if(player3.getChestVote() == 'y'){
-            openChestVotes++;
-        }
-        else{
-            dontOpenChestVotes++;
-        }
-
+       if(!player3Character.isDead()) {
+           if (player3.getChestVote() == 'y') {
+               openChestVotes++;
+           } else {
+               dontOpenChestVotes++;
+           }
+       }
         if (openChestVotes > dontOpenChestVotes) {
             openChest();
             return;
+        }
+        if(openChestVotes == dontOpenChestVotes){
+            broadcast("Please get to an agreement");
+            countChestVotes();
         }
 
         dontOpenChest();
@@ -345,29 +400,47 @@ public class Game implements Runnable {
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
         chest.open();
         if(map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class){
-            broadcast("you have got a boost in your health!");
-            player1Character.increaseHealth(chest.getHealthModifier());
-            player2Character.increaseHealth(chest.getHealthModifier());
-            player3Character.increaseHealth(chest.getHealthModifier());
+            if(!player1Character.isDead()) {
+                player1.sendMessage("you have got a boost in your health!");
+                player1Character.increaseHealth(chest.getHealthModifier());
+            }
+            if(!player2Character.isDead()) {
+                player2.sendMessage("you have got a boost in your health!");
+                player2Character.increaseHealth(chest.getHealthModifier());
+            }
+            if(!player3Character.isDead()) {
+                player3.sendMessage("you have got a boost in your health!");
+                player3Character.increaseHealth(chest.getHealthModifier());
+            }
+
             return;
         }
+        if(!player1Character.isDead()) {
+            player1.sendMessage("The meal was spoiled! you lose some health!");
+            player1Character.increaseHealth(chest.getHealthModifier());
+        }
+        if(!player2Character.isDead()) {
+            player2.sendMessage("The meal was spoiled! you lose some health!");
+            player2Character.increaseHealth(chest.getHealthModifier());
+        }
+        if(!player3Character.isDead()) {
+            player3.sendMessage("The meal was spoiled! you lose some health!");
+            player3Character.increaseHealth(chest.getHealthModifier());
+        }
 
-        broadcast("The meal was spoiled! you lose some health!");
-        player1Character.decreaseHealth(chest.getHealthModifier());
-        player2Character.decreaseHealth(chest.getHealthModifier());
-        player3Character.decreaseHealth(chest.getHealthModifier());
 
     }
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
         if(!fairy.hasCured()){
             fairy.visitRoom();
-            broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
-            broadcast("\033[1;31m" + "You have been healed by " + fairy.getHealthModifier() + " points!" + "\033[0m");
+            broadcast("\033[1;31m" + "The players have found a fairy!" + "\033[0m");
+            broadcast("\033[1;31m" + "The players that reach this point had his life restored in " + fairy.getHealthModifier() + " points!" + "\033[0m");
             
-            player1Character.increaseHealth(fairy.getHealthModifier());
-            player2Character.increaseHealth(fairy.getHealthModifier());
-            player3Character.increaseHealth(fairy.getHealthModifier());
+            if(!player1Character.isDead()){player1Character.increaseHealth(fairy.getHealthModifier());}
+            if(!player2Character.isDead()){player2Character.increaseHealth(fairy.getHealthModifier());}
+            if(!player3Character.isDead()){player3Character.increaseHealth(fairy.getHealthModifier());}
+
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -461,6 +534,10 @@ public class Game implements Runnable {
                 if(votesCounter[i] >= 2)
                 max = i;
             }
+        }else {for(int i = 0; i < votesCounter.length; i++) {
+            if(votesCounter[i] > max)
+                max = votesCounter[i];
+        }
         }
 
         if(max == -1) {
@@ -552,25 +629,17 @@ public class Game implements Runnable {
         }
     }
     private void broadcast(String message) {
-        try {
             player1.sendMessage(message);
             player2.sendMessage(message);
             player3.sendMessage(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
     public Character chooseCharacter(ClientHandler clientHandler) {
         String characterNumber ="";
         Character character = null;
-        try {
-            clientHandler.sendMessage("Choose you character from the above:");
-            clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
-            characterNumber = clientHandler.readMessage();
+        clientHandler.sendMessage("Choose you character from the above:");
+        clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
+        characterNumber = clientHandler.readMessage();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         try {
             switch (characterNumber){
                 case "1": character = new Mage();
