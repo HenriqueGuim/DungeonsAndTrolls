@@ -63,7 +63,7 @@ public class Game implements Runnable {
 
     }
 
-    private Collection<? extends Obstacle> createObstacles() {
+    private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
         int trollNumber = 6;
