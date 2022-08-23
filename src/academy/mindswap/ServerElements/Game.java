@@ -275,7 +275,6 @@ public class Game implements Runnable {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         chooseMove();
         monsterAttack(monster);
-
         monster.defend(player1Character.attack());
         if (monster.isDead()) {
             monster.die();
@@ -303,7 +302,6 @@ public class Game implements Runnable {
         ClientHandler playerToAttack;
         if (!player1.getCharacter().isDead()){playerToAttack = player1;} else if (!player2.getCharacter().isDead())
         {playerToAttack = player2;} else {playerToAttack = player3;}
-
 
         if (playerToAttack.getCharacter().getHealth() > player2Character.getHealth() && !player2Character.isDead()) {
             playerToAttack = player2;
@@ -336,6 +334,8 @@ public class Game implements Runnable {
     }
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
+        readFileGreen("resources/Art/Chest.txt");
+        broadcast("You encounter a chest!");
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
         if(!chest.isOpen()) {
             try {
@@ -427,6 +427,7 @@ public class Game implements Runnable {
     }
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
+        readFileGreen("resources/Art/Fairy");
         if(!fairy.hasCured()){
             fairy.visitRoom();
             broadcast("\033[1;31m" + "The players have found a fairy!" + "\033[0m");
@@ -526,8 +527,7 @@ public class Game implements Runnable {
 
         if(deadPlayers < 2) {
         for (int i = 0; i < votesCounter.length; i++) {
-                if(votesCounter[i] >= 2)
-                max = i;
+                if(votesCounter[i] >= 2){max = i;}
             }
         }else {for(int i = 0; i < votesCounter.length; i++) {
             if(votesCounter[i] > max)
