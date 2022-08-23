@@ -11,6 +11,10 @@ import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
 import java.io.*;
 import java.util.*;
 
+
+/**
+ * This class represents the game process and handles the players and the obstacles.
+ */
 public class Game implements Runnable {
     private ClientHandler player1;
     private ClientHandler player2;
@@ -24,6 +28,12 @@ public class Game implements Runnable {
     private Server server;
     private Obstacle[][] map;
     private int[] playersPosition;
+
+    /**
+     * Constructor for the game.
+     * @param server The server that the game is running on.
+     * @param clientHandlers An array with of the three client handlers of the players.
+     */
     public Game(ClientHandler[] clientHandlers, Server server) {
         player1 = clientHandlers[0];
         player2 = clientHandlers[1];
@@ -37,6 +47,10 @@ public class Game implements Runnable {
         player2.startGame();
         player3.startGame();
     }
+
+    /**
+     * This method creates a randomized map for the game with a 6x6 size. The number of obstacles is manged by the method createObstacles.
+     */
     private void createMap() {
 
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
@@ -58,6 +72,10 @@ public class Game implements Runnable {
 
 
     }
+
+    /**
+     * This method creates a list of obstacles for the game and randomizes them before returning them.
+     */
     private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
@@ -96,6 +114,10 @@ public class Game implements Runnable {
         Collections.shuffle(obstaclesList);
         return obstaclesList;
     }
+
+    /**
+     * This method broadcasts the map to the players with visual representation of the obstacles case have been visited and indicates the player's position.
+     */
     public void showMap(){
         broadcast("\033[1;31m" + "::::::::MAP::::::::" + "\033[0m");
         for (int i = 0; i < 6; i++) {
@@ -113,31 +135,28 @@ public class Game implements Runnable {
         }
         broadcast("You are at the position of " + "\033[42m" + "  " + "\033[0m" + " background.");
     }
+
+    /**
+     * this method overrides the run method of the Runnable interface to start the game.
+     */
     @Override
     public void run() {
-
-        //TODO say to the players that the game is starting
-        //TODO ask the players to choose a character
-        //TODO show the players the map
-        //TODO ask the players to choose the moving direction and vote, if the vote isn't unanimous they will move in a random direction
-        //TODO if the players are on the edge of the map, they have to vote again
-        //TODO check which type of obstacle is on the players position and act accordingly
-        //TODO if is a chest obstacle, the players have to vote to open it.
-        //TODO if is a fairy obstacle, all the players receive a boost in his health
-        //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
-        //TODO the players have to choose his action for the round
-        //TODO show the players the character stats
-        //TODO show the players the map and repeat until they move to the final boss room
-
         createMap();
         playersChooseCharacters();
         startGame();
     }
 
+    /**
+     * This method broadcasts the intro of the game to the players and starts the game.
+     */
     private void startGame() {
         sendIntro();
         playGame();
     }
+
+    /**
+     * this method is responsible for the game loop in a recursive way.
+     */
     private void playGame() {
         showMap();
         voteToMove();
@@ -149,6 +168,10 @@ public class Game implements Runnable {
         }
         winGame();
     }
+
+    /**
+     * this method presents the game over panel to the players and asks them if they want to play again.
+     */
     private void gameOver() {
         try {
             readFileRed("resources/Art/GameOver.txt");
@@ -162,6 +185,10 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * This method presents the win game panel to the players and asks them if they want to play again.
+     */
     private void winGame() {
 
         try {
@@ -176,6 +203,10 @@ public class Game implements Runnable {
         }
         verifyIfWantToPlay();
     }
+
+    /**
+     * This method verifies if the players want to play again.
+     */
 
     private void verifyIfWantToPlay() {
         broadcast("Want to continue playing?");
@@ -194,6 +225,9 @@ public class Game implements Runnable {
         }
         Thread.currentThread().interrupt();
     }
+    /**
+     * This method is responsible to get the end game response of the players.
+     */
     private void endGameResponse(ClientHandler player) {
         String response = player.readMessage();
         response.toLowerCase();
@@ -211,6 +245,10 @@ public class Game implements Runnable {
                 endGameResponse(player);
         }
     }
+
+    /**
+     * This method verifies the room that the players entered and call the appropriate method to handle the room.
+     */
     private void handleRoom() {
         if (map[playersPosition[0]][playersPosition[1]].getClass() == EmptyRoom.class) {
             handleEmptyRoom();
@@ -230,6 +268,10 @@ public class Game implements Runnable {
             return;
         }
     }
+
+    /**
+     * This method handles the monsters rooms and initiates the fight.
+     */
     private void handleMonster() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         if(monster.isDead()){
@@ -241,6 +283,11 @@ public class Game implements Runnable {
         monsterDefeated();
 
     }
+
+    /**
+     * This method verify if the player has defeated the final boss usually used to win the game.
+     * @return true if the final boss has been defeated and false otherwise.
+     */
     private boolean checkIfBossDefeated() {
         Monsters finalBoss = (Monsters) map[5][5];
         if (finalBoss.isDead()) {
@@ -248,12 +295,25 @@ public class Game implements Runnable {
         }
         return false;
     }
+
+    /**
+     * Method responsible to broadcast that the monster has been defeated.
+     */
     private void monsterDefeated() {
         broadcast("Well done! You destroyed the monster.");
     }
+    /**
+     * This method introduces the monster to the players' case the monster already have been defeated.
+     */
     private void introDeadMonster(Monsters monster) {
         broadcast ("You encounter a dead " + monster.getClass().getSimpleName());
     }
+
+    /**
+     * This method introduces the monster to the players.
+     * @param monsters the monster to be introduced.
+     */
+
     private void introduceMonster(Monsters monsters) {
         broadcast("You encounter a " + monsters.getClass().getSimpleName());
         String monsterFile = "";
@@ -271,6 +331,10 @@ public class Game implements Runnable {
         readFileRed(monsterFile);
 
     }
+
+    /**
+     * this method executes the fight between the players and the monster in the room that the players are in.
+     */
     private void fight() {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         chooseMove();
@@ -300,11 +364,21 @@ public class Game implements Runnable {
         sendStatus();
         fight();
     }
+
+    /**
+     * This method indicates to the players their personal status.
+     */
     private void sendStatus() {
             player1.sendMessage("STATUS: " + player1Character.getHealth()+ " HP");
             player2.sendMessage("STATUS: " + player2Character.getHealth()+ " HP");
             player3.sendMessage("STATUS: " + player3Character.getHealth()+ " HP");
     }
+
+    /**
+     * This method is responsible to choose the player that the monster will attack and execute the attack.
+     * Verifies if the player was killed by the monster after the attack.
+     * @param monster the monster that will attack.
+     */
     private void monsterAttack(Monsters monster) {
         ClientHandler playerToAttack;
         if (!player1.getCharacter().isDead()){playerToAttack = player1;} else if (!player2.getCharacter().isDead())
@@ -322,6 +396,12 @@ public class Game implements Runnable {
         playerToAttack.getCharacter().sufferAttack(monster.getDamage());
         checkIfDead(playerToAttack.getCharacter());
     }
+
+    /**
+     * This method is responsible to check if the player is dead and all players are dead calls the endGame method.
+     * If the player in question is dead calls the method die
+     * @param playerToAttack the player to be checked.
+     */
     private void checkIfDead(Character playerToAttack) {
         if (playerToAttack.isDead()) {
             playerToAttack.die();
@@ -330,16 +410,28 @@ public class Game implements Runnable {
             gameOver();
         }
     }
+
+    /**
+     * This method asks the players to choose a move.
+     */
     private void chooseMove() {
         broadcast("Choose your move from list bellow:");
         broadcast("1. Attack 2. Dodge 3. Defend");
         playersChooseMove();
     }
+
+    /**
+     * This method asks tho the PlayerHandler deal with the move chosen.
+     */
     private void playersChooseMove() {
         player1.chooseMove();
         player2.chooseMove();
         player3.chooseMove();
     }
+
+    /**
+     * This method is responsible to handle the chest room.
+     */
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
@@ -353,6 +445,11 @@ public class Game implements Runnable {
         }
         broadcast("The chest is already open.");
     }
+
+    /**
+     * This method is responsible to count the votes of the players to open the chest and execute their choice.
+     * If they didn't get an majority of votes they will be asked to vote again.
+     */
     private void countChestVotes() throws IOException {
         int openChestVotes = 0;
         int dontOpenChestVotes = 0;
@@ -392,9 +489,17 @@ public class Game implements Runnable {
 
         dontOpenChest();
     }
+
+    /**
+     * This method is responsible to not open the chest.
+     */
     private void dontOpenChest() {
         broadcast("The chest remains closed.");
     }
+
+    /**
+     * This method is responsible to open the chest and execute the consequences of open it.
+     */
     private void openChest() {
         broadcast("The chest is open!");
         broadcast("you have found a warm meal!\nYou ate it.");
@@ -431,6 +536,10 @@ public class Game implements Runnable {
 
 
     }
+
+    /**
+     * This method is responsible to handle the fairy room.
+     */
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
         if(!fairy.hasCured()){
@@ -459,6 +568,9 @@ public class Game implements Runnable {
         }
 
     }
+    /**
+     * This method is responsible to handle the empty room.
+     */
     private void handleEmptyRoom() {
         EmptyRoom emptyRoom = (EmptyRoom) map[playersPosition[0]][playersPosition[1]];
         broadcast(emptyRoom.getRoomMessage());
@@ -468,6 +580,10 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * This method is responsible to start the moving of the players by voting process.
+     */
     private void voteToMove() {
         broadcast("\033[1;31m" + "::::::::VOTE TO MOVE::::::::" + "\033[0m");
         broadcast("You must vote to move in a direction.");
@@ -477,6 +593,11 @@ public class Game implements Runnable {
 
 
     }
+
+    /**
+     * This method is responsible to move the players in the direction they voted.
+     * @param direction the direction the players voted.
+     */
     private void move(char direction) {
         switch (direction){
             case 'N':
@@ -494,6 +615,13 @@ public class Game implements Runnable {
         }
         map[playersPosition[0]][playersPosition[1]].visitRoom();
     }
+
+    /**
+     * This method is responsible to count the votes of the players to move.
+     * If the players get a majority of votes, the players will move to the most voted direction, otherwise the players will move randomly.
+     * If the players try to move to a wall, the players will move randomly.
+     * @return the direction that the players voted or the random move direction if appropriate.
+     */
     private char countVotes() {
         int[] votesCounter = new int[]{0, 0, 0, 0};
 
@@ -547,6 +675,12 @@ public class Game implements Runnable {
 
         return checkIfEdge(max);
        }
+
+    /**
+     * This method is responsible to check if the players want to move to a wall.
+     * @param direction
+     * @return the direction the players want to move to if appropriate, otherwise return a random direction.
+     */
     private char checkIfEdge(int direction) {
         if(direction == 0 && playersPosition[0] !=0){
             return 'N';
@@ -563,9 +697,17 @@ public class Game implements Runnable {
 
         return checkIfEdge(randomDirection());
     }
+    /**
+     * This method is responsible to get a random direction.
+     * @return a random direction.
+     */
     private int randomDirection() {
         return new Random().nextInt(4);
     }
+
+    /**
+     * This method is responsible to broadcast the introduction of the game.
+     */
     private void sendIntro() {
         try {
             readFile("resources/Narrator/Intro.txt");
@@ -575,6 +717,11 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * This method is responsible to broadcast the content of the file introduced in the parameter.
+     * @param path the path of the file to read.
+     */
     private void readFile(String path) {
         File file = new File(path);
         String message = "";
@@ -593,6 +740,10 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * This method is responsible to broadcast the content in green of the file introduced in the parameter.
+     * @param path the path of the file to read.
+     */
     private void readFileGreen(String path) {
         File file = new File(path);
         String message = "";
@@ -611,6 +762,10 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+    /**
+     * This method is responsible to broadcast the content in Red of the file introduced in the parameter.
+     * @param path the path of the file to read.
+     */
     private void readFileRed(String path) {
         File file = new File(path);
         String message = "";
@@ -629,11 +784,22 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
     }
+
+    /**
+     * this method is responsible to broadcast the message to all the players.
+     * @param message the message to broadcast.
+     */
     private void broadcast(String message) {
             player1.sendMessage(message);
             player2.sendMessage(message);
             player3.sendMessage(message);
     }
+
+    /**
+     * This method asks the players to choose a character.
+     * @param clientHandler the clientHandler of the player.
+     * @return the character the player chose.
+     */
     public Character chooseCharacter(ClientHandler clientHandler) {
         String characterNumber ="";
         Character character = null;
@@ -658,6 +824,10 @@ public class Game implements Runnable {
         }
         return character;
     }
+
+    /**
+     * This method starts the phase of choosing the character and associates the player with the character.
+     */
     private void playersChooseCharacters() {
         Thread thread1 = new Thread(new Runnable() {
             @Override
