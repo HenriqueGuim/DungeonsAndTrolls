@@ -60,7 +60,7 @@
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
+  <component name="RunManager" selected="Application.Player">
     <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
@@ -121,9 +121,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
       </list>
@@ -266,15 +266,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>38</line>
-          <properties class="academy.mindswap.ServerElements.Server" method="acceptPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
