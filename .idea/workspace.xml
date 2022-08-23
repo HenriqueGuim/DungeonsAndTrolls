@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="created moving/voting method">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/Chest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/Chest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/PlayerCharacters/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/PlayerCharacters/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="JavaDoc_Character_Obstacle_Monster_Chest_SpecialObstacle_" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -43,25 +46,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Git.Branch.Popup.ShowAllRemotes&quot;: &quot;true&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Git.Branch.Popup.ShowAllRemotes": "true",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/resources/Art" />
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Player">
+  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
     <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
@@ -122,9 +126,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
       </list>
@@ -188,7 +192,35 @@
       <option name="project" value="LOCAL" />
       <updated>1661155515632</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="FInished Game">
+      <created>1661248102422</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1661248102422</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Bug in attacking method corrected">
+      <created>1661250017457</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1661250017457</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Javadoc">
+      <created>1661270416957</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1661270416957</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster">
+      <created>1661270991371</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1661270991371</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -221,7 +253,11 @@
     <MESSAGE value="implemented players choosing message at the same time" />
     <MESSAGE value="created a new branch to create game process" />
     <MESSAGE value="created moving/voting method" />
-    <option name="LAST_COMMIT_MESSAGE" value="created moving/voting method" />
+    <MESSAGE value="FInished Game" />
+    <MESSAGE value="Bug in attacking method corrected" />
+    <MESSAGE value="Javadoc" />
+    <MESSAGE value="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -234,15 +270,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>68</line>
-          <properties class="academy.mindswap.ServerElements.Server">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

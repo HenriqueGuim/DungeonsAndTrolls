@@ -3,20 +3,31 @@ package academy.mindswap.ServerElements;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
+/**
+ * This class is the client handler for the server.
+ */
 public class ClientHandler {
     private Socket playerSocket;
     private BufferedReader reader;
     private BufferedWriter writer;
     private String name;
     private boolean isPlaying = false;
+    private boolean isOffline = false;
 
     public Character getCharacter() {
         return character;
     }
 
     private Character character;
+
+    /**
+     * Constructor for the client handler.
+     * @param accept The socket that the client is connected to.
+     */
     public ClientHandler(Socket accept) {
         this.playerSocket = accept;
         startBuffers();
@@ -26,6 +37,9 @@ public class ClientHandler {
         this.character = character;
     }
 
+    /**
+     * Starts the buffers for the client handler.
+     */
     private void startBuffers() {
         try {
             reader = new BufferedReader( new InputStreamReader(playerSocket.getInputStream()));
@@ -36,8 +50,23 @@ public class ClientHandler {
         }
     }
 
+    /**
+     * Checks if the client is offline.
+     * @return True if the client is offline, false otherwise.
+     */
     public boolean isOffline(){
-        return !playerSocket.isConnected();
+
+       InetAddress inetAddress = playerSocket.getInetAddress();
+       int portNumber = playerSocket.getPort();
+        try {
+            Socket testSocket = new Socket(inetAddress, portNumber);
+            testSocket.getInputStream();
+            isOffline = !testSocket.isConnected();
+
+        } catch (IOException ignored) {
+        }
+
+        return isOffline;
     }
 
     public void setName(String name) {
@@ -48,16 +77,19 @@ public class ClientHandler {
         return name;
     }
 
-
-
-        public String readMessage() {
-        sendMessage("-2");
+    /**
+     * Reads a message from the client.
+     * @return
+     */
+    public String readMessage() {
         String message = null;
         try {
+            sendMessage("-2");
             message = reader.readLine();
             if (message == null) {
                 playerSocket.close();
                 isPlaying = true;
+                isOffline = true;
                 return "-1";
             }
         } catch (IOException e) {
@@ -65,26 +97,47 @@ public class ClientHandler {
         }
             return message;
     }
+    /**
+     * Sends a message to the client.
+     * @param message The message to send.
+     */
     public void sendMessage(String message)  {
+
         try {
             writer.write(message);
             writer.newLine();
             writer.flush();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            isOffline = true;
         }
     }
 
-
+    /**
+     * Checks if the client is playing.
+     * @return True if the client is playing, false otherwise.
+     */
     public boolean isPlaying() {
         return isPlaying;
     }
+    /**
+     * Changes the playing status of the client to true.
+     */
     public void startGame(){
         isPlaying = true;
     }
+    /**
+     * Changes the playing status of the client to false.
+     */
     public void endGame(){
         isPlaying = false;
     }
 
+    /**
+     * Receives the player vote to move and confirms the vote.
+     * If the client is offline, it returns -1 and kills the character.
+     * @return The vote.
+     *
+     */
     public char getMoveVote() throws IOException {
         if (character.isDead()){
             return ' ';
@@ -113,6 +166,12 @@ public class ClientHandler {
 
         return getMoveVote();
     }
+
+    /**
+     * Receives the player vote to open a chest and confirms the vote.
+     * If the client is offline, it returns -1 and kills the character.
+     * @return The vote.
+     */
     public char getChestVote() throws IOException {
         if (character.isDead()){
             return ' ';
@@ -136,6 +195,10 @@ public class ClientHandler {
 
         return getChestVote();
     }
+    /**
+     * Receives the player desired move to the turn and executes the needed procedures to the move.
+     * If the client is offline, it returns -1 and kills the character.
+     */
 
     public void chooseMove() {
         if(character.isDead()){

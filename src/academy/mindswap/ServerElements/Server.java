@@ -7,7 +7,9 @@ import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-
+/**
+ * This class represents the server operations
+ */
 
 public class Server {
 
@@ -16,11 +18,17 @@ public class Server {
     ExecutorService threadPool;
 
 
+
     public static void main(String[] args) {
         Server server = new Server();
         server.start(8080);
 
     }
+
+    /**
+     * This method is responsible to execute the server
+     * @param portNumber
+     */
 
     private void start(int portNumber) {
         try {
@@ -36,6 +44,10 @@ public class Server {
         }
 
     }
+
+    /**
+     * Method called to accept and connect clients to the server
+     */
     private void acceptPlayers() {
         ClientHandler clientHandler = null;
             try {
@@ -57,6 +69,12 @@ public class Server {
         
     }
 
+    /**
+     * This method is used to implement a welcome message to the clients connected to the server
+     * @param clientHandler
+     * @throws IOException
+     */
+
     private void welcomeMessage(ClientHandler clientHandler) throws IOException {
         File file = new File("resources/Art/WelcomeMessage.txt");
         BufferedReader welcomeReader = new BufferedReader(new FileReader(file));
@@ -66,14 +84,22 @@ public class Server {
         }
     }
 
+    /**
+     * This method is responsible to connect a limited number of clients to the server
+     */
     void connectPlayers() {
         //removeOfflinePlayers();
         ClientHandler[] clientHandlers = new ClientHandler[3];
         int playerCount = 0;
+
         for (ClientHandler clientHandler : clientsList) {
+            clientHandler.sendMessage("-3");
+
             if (playerCount == 3) {
                 break;
             }
+
+
 
             if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
                 clientHandlers[playerCount] = clientHandler;
@@ -91,6 +117,10 @@ public class Server {
             threadPool.submit(game);
         }
     }
+
+    /**
+     * This method is responsible for remove all the clients that are currently disconnected
+     */
 
     private void removeOfflinePlayers() {
         ArrayList<ClientHandler> offlinePlayers = new ArrayList<ClientHandler>();
