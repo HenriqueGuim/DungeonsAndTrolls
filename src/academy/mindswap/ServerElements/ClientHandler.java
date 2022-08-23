@@ -7,6 +7,9 @@ import java.net.InetAddress;
 import java.net.Socket;
 import java.net.SocketAddress;
 
+/**
+ * This class is the client handler for the server.
+ */
 public class ClientHandler {
     private Socket playerSocket;
     private BufferedReader reader;
@@ -20,6 +23,11 @@ public class ClientHandler {
     }
 
     private Character character;
+
+    /**
+     * Constructor for the client handler.
+     * @param accept The socket that the client is connected to.
+     */
     public ClientHandler(Socket accept) {
         this.playerSocket = accept;
         startBuffers();
@@ -29,6 +37,9 @@ public class ClientHandler {
         this.character = character;
     }
 
+    /**
+     * Starts the buffers for the client handler.
+     */
     private void startBuffers() {
         try {
             reader = new BufferedReader( new InputStreamReader(playerSocket.getInputStream()));
@@ -39,6 +50,10 @@ public class ClientHandler {
         }
     }
 
+    /**
+     * Checks if the client is offline.
+     * @return True if the client is offline, false otherwise.
+     */
     public boolean isOffline(){
 
        InetAddress inetAddress = playerSocket.getInetAddress();
@@ -62,9 +77,11 @@ public class ClientHandler {
         return name;
     }
 
-
-
-        public String readMessage() {
+    /**
+     * Reads a message from the client.
+     * @return
+     */
+    public String readMessage() {
         String message = null;
         try {
             sendMessage("-2");
@@ -80,6 +97,10 @@ public class ClientHandler {
         }
             return message;
     }
+    /**
+     * Sends a message to the client.
+     * @param message The message to send.
+     */
     public void sendMessage(String message)  {
 
         try {
@@ -91,17 +112,32 @@ public class ClientHandler {
         }
     }
 
-
+    /**
+     * Checks if the client is playing.
+     * @return True if the client is playing, false otherwise.
+     */
     public boolean isPlaying() {
         return isPlaying;
     }
+    /**
+     * Changes the playing status of the client to true.
+     */
     public void startGame(){
         isPlaying = true;
     }
+    /**
+     * Changes the playing status of the client to false.
+     */
     public void endGame(){
         isPlaying = false;
     }
 
+    /**
+     * Receives the player vote to move and confirms the vote.
+     * If the client is offline, it returns -1 and kills the character.
+     * @return The vote.
+     *
+     */
     public char getMoveVote() throws IOException {
         if (character.isDead()){
             return ' ';
@@ -130,6 +166,12 @@ public class ClientHandler {
 
         return getMoveVote();
     }
+
+    /**
+     * Receives the player vote to open a chest and confirms the vote.
+     * If the client is offline, it returns -1 and kills the character.
+     * @return The vote.
+     */
     public char getChestVote() throws IOException {
         if (character.isDead()){
             return ' ';
@@ -153,6 +195,10 @@ public class ClientHandler {
 
         return getChestVote();
     }
+    /**
+     * Receives the player desired move to the turn and executes the needed procedures to the move.
+     * If the client is offline, it returns -1 and kills the character.
+     */
 
     public void chooseMove() {
         if(character.isDead()){
