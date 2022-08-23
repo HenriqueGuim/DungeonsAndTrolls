@@ -75,7 +75,7 @@ public abstract class Character implements Attackable {
      * Method to increase the amount of health of the character
      * @param health amount of health to increase
      */
-        @Override
+    @Override
     public void increaseHealth(int health) {
         this.health += health;
     }
@@ -86,7 +86,7 @@ public abstract class Character implements Attackable {
      */
 
     @Override
-        public void decreaseHealth(int health) {
+    public void decreaseHealth(int health) {
         this.health -= health;
 
     }
@@ -132,30 +132,30 @@ public abstract class Character implements Attackable {
 
     public void tryToDodge(int damage){
         int probability = new Random().nextInt(10);
-         chooseDodge = false;
-         if(dodgeUsage == 0){ //Number os usage (0 = first usage)
-             dodgeUsage++;
-             return;
-         }
+        chooseDodge = false;
+        if(dodgeUsage == 0){ //Number os usage (0 = first usage)
+            dodgeUsage++;
+            return;
+        }
 
-         if(dodgeUsage == 1){
-             if(probability > 4){
-                 decreaseHealth(damage);
-                 dodgeUsage = 0;
-                 return;
-             }
-             dodgeUsage++;
-             return;
-         }
-         if (dodgeUsage > 1){
-             if(probability > 7){
-                 decreaseHealth(damage);
-                 dodgeUsage = 0;
-                 return;
-             }
-             dodgeUsage++;
-             return;
-         }
+        if(dodgeUsage == 1){
+            if(probability > 4){
+                decreaseHealth(damage);
+                dodgeUsage = 0;
+                return;
+            }
+            dodgeUsage++;
+            return;
+        }
+        if (dodgeUsage > 1){
+            if(probability > 7){
+                decreaseHealth(damage);
+                dodgeUsage = 0;
+                return;
+            }
+            dodgeUsage++;
+            return;
+        }
 
 
 

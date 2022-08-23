@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Javadoc" />
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/Obstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/Chest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/Chest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/Obstacles/SpecialObstacles/SpecialObstacle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/PlayerCharacters/Character.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/GameElements/PlayerCharacters/Character.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="JavaDoc_Character_Obstacle_Monster_Chest_SpecialObstacle_" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -206,7 +213,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661270416957</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster">
+      <created>1661270991371</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1661270991371</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -242,7 +256,8 @@
     <MESSAGE value="FInished Game" />
     <MESSAGE value="Bug in attacking method corrected" />
     <MESSAGE value="Javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Javadoc" />
+    <MESSAGE value="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster" />
+    <option name="LAST_COMMIT_MESSAGE" value="Javadoc in class Character, Obstacle, SpecialObstacle, Chest and Monster" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -255,24 +270,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>68</line>
-          <properties class="academy.mindswap.ServerElements.Server" method="connectPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="15" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>38</line>
-          <properties class="academy.mindswap.ServerElements.Server" method="acceptPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
