@@ -181,6 +181,7 @@ public class Game implements Runnable {
             broadcast("-".repeat(40));
             Thread.sleep(500);
             verifyIfWantToPlay();
+            Thread.currentThread().interrupt();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -202,6 +203,7 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
         verifyIfWantToPlay();
+        Thread.currentThread().interrupt();
     }
 
     /**
@@ -223,7 +225,6 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread.currentThread().interrupt();
     }
     /**
      * This method is responsible to get the end game response of the players.
@@ -326,6 +327,7 @@ public class Game implements Runnable {
         } if (MiniBoss.class.equals(monsters.getClass())) {
             monsterFile = "resources/Art/MiniBoss";
         } if (FinalBoss.class.equals(monsters.getClass())) {
+            broadcast("\033[1;35"+ "::::::::::: FINAL BOSS :::::::::::" +"\033[0;m");
             monsterFile = "resources/Art/Boss";
         }
         readFileRed(monsterFile);
@@ -339,6 +341,7 @@ public class Game implements Runnable {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         chooseMove();
         monsterAttack(monster);
+
 
         if(!player1Character.isDead()){
             monster.defend(player1Character.attack());
