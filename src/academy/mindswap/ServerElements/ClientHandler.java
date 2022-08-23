@@ -37,7 +37,7 @@ public class ClientHandler {
     }
 
     public boolean isOffline(){
-        return !playerSocket.isConnected();
+        return playerSocket.isBound();
     }
 
     public void setName(String name) {

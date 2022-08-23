@@ -276,17 +276,23 @@ public class Game implements Runnable {
         chooseMove();
         monsterAttack(monster);
 
-        monster.defend(player1Character.attack());
+        if(!player1Character.isDead()){
+            monster.defend(player1Character.attack());
+        }
         if (monster.isDead()) {
             monster.die();
             return;
         }
-        monster.defend(player2Character.attack());
+        if(!player2Character.isDead()){
+            monster.defend(player2Character.attack());
+        }
         if (monster.isDead()) {
             monster.die();
             return;
         }
-        monster.defend(player3Character.attack());
+        if(!player3Character.isDead()){
+            monster.defend(player3Character.attack());
+        }
         if (monster.isDead()) {
             monster.die();
             return;

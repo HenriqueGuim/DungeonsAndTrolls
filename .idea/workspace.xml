@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="created moving/voting method">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="FInished Game">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" afterDir="false" />
@@ -190,7 +189,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661155515632</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="FInished Game">
+      <created>1661248102422</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1661248102422</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -223,7 +229,8 @@
     <MESSAGE value="implemented players choosing message at the same time" />
     <MESSAGE value="created a new branch to create game process" />
     <MESSAGE value="created moving/voting method" />
-    <option name="LAST_COMMIT_MESSAGE" value="created moving/voting method" />
+    <MESSAGE value="FInished Game" />
+    <option name="LAST_COMMIT_MESSAGE" value="FInished Game" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
