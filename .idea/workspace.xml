@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="corrected bug in starting Game" />
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Final Version">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,10 +24,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="merging_new_arts" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GithubProjectSettings">
+    <option name="branchProtectionPatterns">
+      <list>
+        <option value="master" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -118,9 +127,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
       </list>
@@ -212,7 +221,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661273312120</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Final Version">
+      <created>1661274013344</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1661274013344</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -249,7 +265,8 @@
     <MESSAGE value="Bug in attacking method corrected" />
     <MESSAGE value="corrected bug in starting Game" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="Final Version" />
+    <option name="LAST_COMMIT_MESSAGE" value="Final Version" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -265,8 +282,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>68</line>
-          <properties class="academy.mindswap.ServerElements.Server">
+          <line>89</line>
+          <properties class="academy.mindswap.ServerElements.Server" method="connectPlayers">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
@@ -274,21 +291,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
           <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>38</line>
-          <properties class="academy.mindswap.ServerElements.Server">
+          <line>50</line>
+          <properties class="academy.mindswap.ServerElements.Server" method="acceptPlayers">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="16" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java</url>
-          <line>630</line>
-          <properties class="academy.mindswap.ServerElements.Game" method="countVotes">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="18" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -1,0 +1,8 @@
+academy.mindswap
+academy.mindswap.ServerElements
+academy.mindswap.ServerElements.GameElements.CharactersAndMonsters
+academy.mindswap.ServerElements.GameElements.GameInterfaces
+academy.mindswap.ServerElements.GameElements.Obstacles
+academy.mindswap.ServerElements.GameElements.Obstacles.Monsters
+academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles
+academy.mindswap.ServerElements.GameElements.PlayerCharacters
