@@ -70,10 +70,15 @@ public class Server {
         //removeOfflinePlayers();
         ClientHandler[] clientHandlers = new ClientHandler[3];
         int playerCount = 0;
+
         for (ClientHandler clientHandler : clientsList) {
+            clientHandler.sendMessage("-3");
+
             if (playerCount == 3) {
                 break;
             }
+
+
 
             if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
                 clientHandlers[playerCount] = clientHandler;
