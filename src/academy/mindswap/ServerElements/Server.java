@@ -2,6 +2,7 @@ package academy.mindswap.ServerElements;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -66,18 +67,21 @@ public class Server {
     }
 
     void connectPlayers() {
+        //removeOfflinePlayers();
         ClientHandler[] clientHandlers = new ClientHandler[3];
         int playerCount = 0;
-
         for (ClientHandler clientHandler : clientsList) {
             if (playerCount == 3) {
                 break;
             }
+
             if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
                 clientHandlers[playerCount] = clientHandler;
+
                 playerCount++;
             }
         }
+
         if (playerCount == 3) {
             System.out.println("starting a new game");
             clientsList.forEach(client -> {
@@ -86,5 +90,15 @@ public class Server {
             Game game = new Game(clientHandlers, this);
             threadPool.submit(game);
         }
+    }
+
+    private void removeOfflinePlayers() {
+        ArrayList<ClientHandler> offlinePlayers = new ArrayList<ClientHandler>();
+        for (ClientHandler clientHandler : clientsList) {
+            if (clientHandler.isOffline()) {
+                offlinePlayers.add(clientHandler);
+            }
+        }
+        clientsList.removeAll(offlinePlayers);
     }
 }

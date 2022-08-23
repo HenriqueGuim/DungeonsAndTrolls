@@ -37,7 +37,7 @@ public class ClientHandler {
     }
 
     public boolean isOffline(){
-        return playerSocket.isClosed();
+        return !playerSocket.isConnected();
     }
 
     public void setName(String name) {
@@ -48,12 +48,17 @@ public class ClientHandler {
         return name;
     }
 
-    public String readMessage() {
+
+
+        public String readMessage() {
+        sendMessage("-2");
         String message = null;
         try {
             message = reader.readLine();
             if (message == null) {
                 playerSocket.close();
+                isPlaying = true;
+                return "-1";
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -65,8 +70,7 @@ public class ClientHandler {
             writer.write(message);
             writer.newLine();
             writer.flush();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (IOException ignored) {
         }
     }
 
@@ -88,6 +92,10 @@ public class ClientHandler {
 
         String message = null;
         message = readMessage();
+        if (message.equals("-1")){
+            character.die();
+            return ' ';
+        }
 
         if(message.trim().equalsIgnoreCase("N")){
             return 'N';
@@ -109,9 +117,13 @@ public class ClientHandler {
         if (character.isDead()){
             return ' ';
         }
-
         String message = null;
         message = readMessage();
+
+        if (message.equals("-1")){
+            character.die();
+            return ' ';
+        }
 
         if(message.trim().equalsIgnoreCase("yes")){
             return 'y';
@@ -131,6 +143,10 @@ public class ClientHandler {
         }
         String message = null;
         message = readMessage();
+        if (message.equals("-1")){
+            character.die();
+            return;
+        }
 
         if (message.equals("2")){
             character.chooseDodge();

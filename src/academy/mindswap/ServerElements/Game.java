@@ -132,14 +132,6 @@ public class Game implements Runnable {
         createMap();
         playersChooseCharacters();
         startGame();
-                //askToPlayAgain();
-    }
-
-    private void gameOver() {
-        //TODO
-
-        verifyIfWantToPlay();
-
     }
 
     private void startGame() {
@@ -165,6 +157,7 @@ public class Game implements Runnable {
             Thread.sleep(500);
             broadcast("-".repeat(40));
             Thread.sleep(500);
+            verifyIfWantToPlay();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -211,6 +204,8 @@ public class Game implements Runnable {
                 return;
             case "no": player.sendMessage("Thank you for playing with us.");
                 server.clientsList.remove(player);
+                return;
+            case "-1": server.clientsList.remove(player);
                 return;
             default: player.sendMessage("Please insert a valid message: Yes or No");
                 endGameResponse(player);
@@ -647,6 +642,8 @@ public class Game implements Runnable {
                 case "2": character= new Knight();
                 break;
                 case "3": character = new Squire();
+                break;
+                case "-1": character = new Squire();
                 break;
                 default: character = chooseCharacter(clientHandler);
             }
