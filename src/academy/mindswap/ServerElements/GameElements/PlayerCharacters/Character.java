@@ -53,11 +53,14 @@ public abstract class Character implements Attackable {
     }
 
     public int attack() {
+        if( health <= 0 ){
+            return damage = 0;
+        }
         if (chooseDodge || chooseDefend){
             chooseDodge = false;
             chooseDefend = false;
 
-            return 0;
+            return damage = 0;
         }
         return damage;
     }

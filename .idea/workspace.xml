@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Bug in attacking method corrected">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="fixed bug with dead players.&#10;fixed bug with Troll.txt wrongly represented on console.&#10;Added correct filereaders for fairy and chest obstacles.&#10;Creating printscreens for readme from this branch.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +59,7 @@
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Player">
+  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
     <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
@@ -187,19 +186,19 @@
       <option name="project" value="LOCAL" />
       <updated>1661155515632</updated>
     </task>
-    <task id="LOCAL-00008" summary="FInished Game">
-      <created>1661248102422</created>
+    <task id="LOCAL-00008" summary="creating branch">
+      <created>1661249468514</created>
       <option name="number" value="00008" />
       <option name="presentableId" value="LOCAL-00008" />
       <option name="project" value="LOCAL" />
-      <updated>1661248102422</updated>
+      <updated>1661249468514</updated>
     </task>
-    <task id="LOCAL-00009" summary="Bug in attacking method corrected">
-      <created>1661250017457</created>
+    <task id="LOCAL-00009" summary="fixed bug with dead players.&#10;fixed bug with Troll.txt wrongly represented on console.&#10;Added correct filereaders for fairy and chest obstacles.&#10;Creating printscreens for readme from this branch.">
+      <created>1661255223167</created>
       <option name="number" value="00009" />
       <option name="presentableId" value="LOCAL-00009" />
       <option name="project" value="LOCAL" />
-      <updated>1661250017457</updated>
+      <updated>1661255223167</updated>
     </task>
     <option name="localTasksCounter" value="10" />
     <servers />
@@ -234,9 +233,9 @@
     <MESSAGE value="implemented players choosing message at the same time" />
     <MESSAGE value="created a new branch to create game process" />
     <MESSAGE value="created moving/voting method" />
-    <MESSAGE value="FInished Game" />
-    <MESSAGE value="Bug in attacking method corrected" />
-    <option name="LAST_COMMIT_MESSAGE" value="Bug in attacking method corrected" />
+    <MESSAGE value="creating branch" />
+    <MESSAGE value="fixed bug with dead players.&#10;fixed bug with Troll.txt wrongly represented on console.&#10;Added correct filereaders for fairy and chest obstacles.&#10;Creating printscreens for readme from this branch." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed bug with dead players.&#10;fixed bug with Troll.txt wrongly represented on console.&#10;Added correct filereaders for fairy and chest obstacles.&#10;Creating printscreens for readme from this branch." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -249,15 +248,6 @@
             <option name="WATCH_EXIT" value="false" />
           </properties>
           <option name="timeStamp" value="4" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
-          <line>68</line>
-          <properties class="academy.mindswap.ServerElements.Server" method="connectPlayers">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

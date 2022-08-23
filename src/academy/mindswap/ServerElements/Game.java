@@ -115,6 +115,20 @@ public class Game implements Runnable {
     }
     @Override
     public void run() {
+
+        //TODO say to the players that the game is starting
+        //TODO ask the players to choose a character
+        //TODO show the players the map
+        //TODO ask the players to choose the moving direction and vote, if the vote isn't unanimous they will move in a random direction
+        //TODO if the players are on the edge of the map, they have to vote again
+        //TODO check which type of obstacle is on the players position and act accordingly
+        //TODO if is a chest obstacle, the players have to vote to open it.
+        //TODO if is a fairy obstacle, all the players receive a boost in his health
+        //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
+        //TODO the players have to choose his action for the round
+        //TODO show the players the character stats
+        //TODO show the players the map and repeat until they move to the final boss room
+
         createMap();
         playersChooseCharacters();
         startGame();
@@ -147,8 +161,6 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        verifyIfWantToPlay();
-        Thread.currentThread().interrupt();
     }
     private void winGame() {
 
@@ -163,7 +175,6 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
         verifyIfWantToPlay();
-        Thread.currentThread().interrupt();
     }
 
     private void verifyIfWantToPlay() {
@@ -264,24 +275,17 @@ public class Game implements Runnable {
         Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
         chooseMove();
         monsterAttack(monster);
-
-        if(!player1Character.isDead()){
-            monster.defend(player1Character.attack());
-        }
+        monster.defend(player1Character.attack());
         if (monster.isDead()) {
             monster.die();
             return;
         }
-        if(!player2Character.isDead()){
-            monster.defend(player2Character.attack());
-        }
+        monster.defend(player2Character.attack());
         if (monster.isDead()) {
             monster.die();
             return;
         }
-        if(!player3Character.isDead()){
-            monster.defend(player3Character.attack());
-        }
+        monster.defend(player3Character.attack());
         if (monster.isDead()) {
             monster.die();
             return;
@@ -298,7 +302,6 @@ public class Game implements Runnable {
         ClientHandler playerToAttack;
         if (!player1.getCharacter().isDead()){playerToAttack = player1;} else if (!player2.getCharacter().isDead())
         {playerToAttack = player2;} else {playerToAttack = player3;}
-
 
         if (playerToAttack.getCharacter().getHealth() > player2Character.getHealth() && !player2Character.isDead()) {
             playerToAttack = player2;
@@ -331,6 +334,8 @@ public class Game implements Runnable {
     }
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
+        readFileGreen("resources/Art/Chest.txt");
+        broadcast("You encounter a chest!");
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
         if(!chest.isOpen()) {
             try {
@@ -422,6 +427,7 @@ public class Game implements Runnable {
     }
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
+        readFileGreen("resources/Art/Fairy");
         if(!fairy.hasCured()){
             fairy.visitRoom();
             broadcast("\033[1;31m" + "The players have found a fairy!" + "\033[0m");
@@ -521,8 +527,7 @@ public class Game implements Runnable {
 
         if(deadPlayers < 2) {
         for (int i = 0; i < votesCounter.length; i++) {
-                if(votesCounter[i] >= 2)
-                max = i;
+                if(votesCounter[i] >= 2){max = i;}
             }
         }else {for(int i = 0; i < votesCounter.length; i++) {
             if(votesCounter[i] > max)
