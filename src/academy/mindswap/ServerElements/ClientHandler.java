@@ -3,7 +3,9 @@ package academy.mindswap.ServerElements;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.Socket;
+import java.net.SocketAddress;
 
 public class ClientHandler {
     private Socket playerSocket;
@@ -11,6 +13,7 @@ public class ClientHandler {
     private BufferedWriter writer;
     private String name;
     private boolean isPlaying = false;
+    private boolean isOffline = false;
 
     public Character getCharacter() {
         return character;
@@ -37,7 +40,18 @@ public class ClientHandler {
     }
 
     public boolean isOffline(){
-        return playerSocket.isBound();
+
+       InetAddress inetAddress = playerSocket.getInetAddress();
+       int portNumber = playerSocket.getPort();
+        try {
+            Socket testSocket = new Socket(inetAddress, portNumber);
+            testSocket.getInputStream();
+            isOffline = !testSocket.isConnected();
+
+        } catch (IOException ignored) {
+        }
+
+        return isOffline;
     }
 
     public void setName(String name) {
@@ -51,13 +65,14 @@ public class ClientHandler {
 
 
         public String readMessage() {
-        sendMessage("-2");
         String message = null;
         try {
+            sendMessage("-2");
             message = reader.readLine();
             if (message == null) {
                 playerSocket.close();
                 isPlaying = true;
+                isOffline = true;
                 return "-1";
             }
         } catch (IOException e) {
@@ -66,11 +81,13 @@ public class ClientHandler {
             return message;
     }
     public void sendMessage(String message)  {
+
         try {
             writer.write(message);
             writer.newLine();
             writer.flush();
-        } catch (IOException ignored) {
+        } catch (IOException e) {
+            isOffline = true;
         }
     }
 

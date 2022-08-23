@@ -72,11 +72,13 @@ public class Server {
         int playerCount = 0;
 
         for (ClientHandler clientHandler : clientsList) {
-            clientHandler.readMessage();
+            clientHandler.sendMessage("-3");
 
             if (playerCount == 3) {
                 break;
             }
+
+
 
             if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
                 clientHandlers[playerCount] = clientHandler;

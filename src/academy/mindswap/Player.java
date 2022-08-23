@@ -60,12 +60,15 @@ public class Player {
         String message = null;
         try {
             message = serverReader.readLine();
+            if (message.equals("-3")) {
+                serverListener();
+            }
             if (message.equals("-2")) {
                 serverWriter();
+                serverListener();
             }
-            if(!message.equals("-2")) {
-                System.out.println(message);
-            }
+            System.out.println(message);
+
 
         } catch (IOException e) {
             throw new RuntimeException(e);
