@@ -434,6 +434,8 @@ public class Game implements Runnable {
      */
     private void handleChest() {
         broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
+        broadcast("You found a chest!");
+        readFileGreen("resources/Art/Chest.txt");
         Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
         if(!chest.isOpen()) {
             try {
@@ -542,10 +544,11 @@ public class Game implements Runnable {
      */
     private void handleFairy() {
         Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
+        readFileGreen("resources/Art/Fairy");
         if(!fairy.hasCured()){
             fairy.visitRoom();
-            broadcast("\033[1;31m" + "The players have found a fairy!" + "\033[0m");
-            broadcast("\033[1;31m" + "The players that reach this point had his life restored in " + fairy.getHealthModifier() + " points!" + "\033[0m");
+            broadcast("\033[0;92m" + "The players have found a fairy!" + "\033[0m");
+            broadcast("\033[0;92m" + "The players that reach this point had his life restored in " + fairy.getHealthModifier() + " points!" + "\033[0m");
             
             if(!player1Character.isDead()){player1Character.increaseHealth(fairy.getHealthModifier());}
             if(!player2Character.isDead()){player2Character.increaseHealth(fairy.getHealthModifier());}
@@ -559,7 +562,7 @@ public class Game implements Runnable {
             fairy.cure();
             return;
         }
-        broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
+        broadcast("\033[0;92m" + "You have found a fairy!" + "\033[0m");
         broadcast("But already have healed you once!");
         try {
             Thread.sleep(1000);
