@@ -119,6 +119,7 @@ public abstract class Character implements Attackable {
     public void die() {
         if (isDead()){
             health = 0;
+            damage = 0;
         }
     }
 }
