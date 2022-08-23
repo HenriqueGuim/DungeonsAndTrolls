@@ -43,7 +43,7 @@ public class Server {
                 welcomeMessage(clientHandler);
                 clientHandler.sendMessage("Welcome to the server\nPlease enter your name");
                 clientHandler.setName(clientHandler.readMessage());
-                clientHandler.sendMessage("Welcome" + " to the server " + clientHandler.getName());
+                clientHandler.sendMessage("Welcome to the server " + clientHandler.getName());
                 clientHandler.sendMessage("waiting for other players");
                 clientsList.add(clientHandler);
                 System.out.println("Player " + clientHandler.getName() + " has joined the server");
@@ -57,7 +57,7 @@ public class Server {
     }
 
     private void welcomeMessage(ClientHandler clientHandler) throws IOException {
-        File file = new File("resources/welcomeMessage");
+        File file = new File("resources/Art/WelcomeMessage.txt");
         BufferedReader welcomeReader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = welcomeReader.readLine()) != null) {
