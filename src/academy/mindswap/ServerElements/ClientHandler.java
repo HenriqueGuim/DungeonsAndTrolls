@@ -76,7 +76,7 @@ public class ClientHandler {
                 return "-1";
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            isOffline = true;
         }
             return message;
     }

@@ -166,6 +166,7 @@ public class Game implements Runnable {
             broadcast("-".repeat(40));
             Thread.sleep(500);
             verifyIfWantToPlay();
+            Thread.currentThread().interrupt();
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -183,6 +184,7 @@ public class Game implements Runnable {
             throw new RuntimeException(e);
         }
         verifyIfWantToPlay();
+        Thread.currentThread().interrupt();
     }
 
     private void verifyIfWantToPlay() {
@@ -200,7 +202,6 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-        Thread.currentThread().interrupt();
     }
     private void endGameResponse(ClientHandler player) {
         String response = player.readMessage();
