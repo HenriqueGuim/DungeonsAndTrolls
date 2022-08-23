@@ -671,7 +671,7 @@ public class Game implements Runnable {
             }
         }else {for(int i = 0; i < votesCounter.length; i++) {
             if(votesCounter[i] > max)
-                max = votesCounter[i];
+                max = i;
         }
         }
 

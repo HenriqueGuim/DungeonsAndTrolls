@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Final Version">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Added JavaDoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +67,7 @@
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
+  <component name="RunManager" selected="Application.Player">
     <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
@@ -127,9 +128,9 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
-        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
       </list>
@@ -228,7 +229,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661274013344</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="Added JavaDoc">
+      <created>1661276218701</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1661276218701</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -266,7 +274,8 @@
     <MESSAGE value="corrected bug in starting Game" />
     <MESSAGE value="." />
     <MESSAGE value="Final Version" />
-    <option name="LAST_COMMIT_MESSAGE" value="Final Version" />
+    <MESSAGE value="Added JavaDoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added JavaDoc" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
