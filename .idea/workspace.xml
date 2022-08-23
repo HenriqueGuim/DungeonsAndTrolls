@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="corrected minor bugs">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Bug in attacking method corrected">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Art/Troll.txt" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Art/Troll.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,9 +122,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
         <item itemvalue="Application.academy.mindswap.Main" />
+        <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.academy.mindswap.ServerElements.Server" />
         <item itemvalue="Application.Server" />
       </list>
@@ -203,21 +202,7 @@
       <option name="project" value="LOCAL" />
       <updated>1661250017457</updated>
     </task>
-    <task id="LOCAL-00010" summary="corrected bug in starting Game">
-      <created>1661255448041</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1661255448041</updated>
-    </task>
-    <task id="LOCAL-00011" summary="corrected minor bugs">
-      <created>1661262260517</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1661262260517</updated>
-    </task>
-    <option name="localTasksCounter" value="12" />
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -252,9 +237,7 @@
     <MESSAGE value="created moving/voting method" />
     <MESSAGE value="FInished Game" />
     <MESSAGE value="Bug in attacking method corrected" />
-    <MESSAGE value="corrected bug in starting Game" />
-    <MESSAGE value="corrected minor bugs" />
-    <option name="LAST_COMMIT_MESSAGE" value="corrected minor bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bug in attacking method corrected" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
