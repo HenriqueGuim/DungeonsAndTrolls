@@ -2,6 +2,7 @@ package academy.mindswap.ServerElements;
 
 import java.io.*;
 import java.net.ServerSocket;
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -43,7 +44,7 @@ public class Server {
                 welcomeMessage(clientHandler);
                 clientHandler.sendMessage("Welcome to the server\nPlease enter your name");
                 clientHandler.setName(clientHandler.readMessage());
-                clientHandler.sendMessage("Welcome" + " to the server " + clientHandler.getName());
+                clientHandler.sendMessage("Welcome to the server " + clientHandler.getName());
                 clientHandler.sendMessage("waiting for other players");
                 clientsList.add(clientHandler);
                 System.out.println("Player " + clientHandler.getName() + " has joined the server");
@@ -57,7 +58,7 @@ public class Server {
     }
 
     private void welcomeMessage(ClientHandler clientHandler) throws IOException {
-        File file = new File("resources/welcomeMessage");
+        File file = new File("resources/Art/WelcomeMessage.txt");
         BufferedReader welcomeReader = new BufferedReader(new FileReader(file));
         String line;
         while ((line = welcomeReader.readLine()) != null) {
@@ -65,30 +66,39 @@ public class Server {
         }
     }
 
-    private void connectPlayers() {
+    void connectPlayers() {
+        //removeOfflinePlayers();
         ClientHandler[] clientHandlers = new ClientHandler[3];
         int playerCount = 0;
-
         for (ClientHandler clientHandler : clientsList) {
             if (playerCount == 3) {
                 break;
             }
+
             if (!clientHandler.isPlaying() && !clientHandler.isOffline()) {
                 clientHandlers[playerCount] = clientHandler;
+
                 playerCount++;
             }
         }
+
         if (playerCount == 3) {
             System.out.println("starting a new game");
             clientsList.forEach(client -> {
-                try {
-                    client.sendMessage("starting a new game");
-                } catch (IOException e) {
-                        clientsList.remove(client);
-                }
+                client.sendMessage("starting a new game");
             });
             Game game = new Game(clientHandlers, this);
             threadPool.submit(game);
         }
+    }
+
+    private void removeOfflinePlayers() {
+        ArrayList<ClientHandler> offlinePlayers = new ArrayList<ClientHandler>();
+        for (ClientHandler clientHandler : clientsList) {
+            if (clientHandler.isOffline()) {
+                offlinePlayers.add(clientHandler);
+            }
+        }
+        clientsList.removeAll(offlinePlayers);
     }
 }

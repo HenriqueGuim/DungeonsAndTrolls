@@ -3,8 +3,8 @@ import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
 
 public abstract class SpecialObstacle extends Obstacle {
     private int healthModifier;
-    public SpecialObstacle(int healthModifier){
-        super("S");
+    public SpecialObstacle(int healthModifier, String character){
+        super(character);
         this.healthModifier = healthModifier;
     }
     public int getHealthModifier() {

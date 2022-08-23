@@ -6,11 +6,13 @@ public class EmptyRoom extends Obstacle {
     private String smellyRoom = "There is a lingering smell of rot in this room.";
     private String trashRoom = "This room is crowded with trash. It's hard to go through it.";
 
+    private String[] roomMessages = {rubbleRoom, smellyRoom, trashRoom};
     public EmptyRoom() {
         super("E");
     }
 
-    public String getRubbleRoom() {return rubbleRoom;}
-    public String getSmellyRoom() {return smellyRoom;}
-    public String getTrashRoom() {return trashRoom;}
+    public String getRoomMessage() {
+        return roomMessages[(int) (Math.random() * roomMessages.length)];
+    }
+
 }

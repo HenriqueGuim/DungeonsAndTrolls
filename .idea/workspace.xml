@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="created a new branch to create game process">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="created moving/voting method">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,13 +32,6 @@
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GithubProjectSettings">
-    <option name="branchProtectionPatterns">
-      <list>
-        <option value="master" />
-      </list>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -63,10 +59,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resources/Art" />
       <recent name="$PROJECT_DIR$/resources" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.academy.mindswap.ServerElements.Server">
+  <component name="RunManager" selected="Application.Player">
     <configuration name="Player" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="academy.mindswap.Player" />
       <module name="DungeonsAndTrolls" />
@@ -186,7 +183,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661100582435</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="created moving/voting method">
+      <created>1661155515632</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1661155515632</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -218,7 +222,8 @@
     <MESSAGE value="merged show map and choosing character" />
     <MESSAGE value="implemented players choosing message at the same time" />
     <MESSAGE value="created a new branch to create game process" />
-    <option name="LAST_COMMIT_MESSAGE" value="created a new branch to create game process" />
+    <MESSAGE value="created moving/voting method" />
+    <option name="LAST_COMMIT_MESSAGE" value="created moving/voting method" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -233,18 +238,13 @@
           <option name="timeStamp" value="4" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/ClientHandler.java</url>
-          <line>19</line>
-          <properties class="academy.mindswap.ServerElements.ClientHandler" method="setCharacter">
+          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Server.java</url>
+          <line>68</line>
+          <properties class="academy.mindswap.ServerElements.Server" method="connectPlayers">
             <option name="EMULATED" value="true" />
             <option name="WATCH_EXIT" value="false" />
           </properties>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/academy/mindswap/ServerElements/Game.java</url>
-          <line>139</line>
-          <option name="timeStamp" value="11" />
+          <option name="timeStamp" value="15" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

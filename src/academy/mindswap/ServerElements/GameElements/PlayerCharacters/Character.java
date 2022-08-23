@@ -31,7 +31,6 @@ public abstract class Character implements Attackable {
 
     public void defend(int damage){
         decreaseHealth(damage / 2);
-        chooseDefend = false;
     }
 
     public void chooseDodge(){
@@ -39,7 +38,7 @@ public abstract class Character implements Attackable {
     }
 
     public void chooseDefend(){
-        chooseDodge = true;
+        chooseDefend = true;
     }
 
         @Override
@@ -53,10 +52,19 @@ public abstract class Character implements Attackable {
 
     }
 
-    public int attack(){
-        return damage;
+    public int attack() {
+        if (chooseDodge || chooseDefend){
+            chooseDodge = false;
+            chooseDefend = false;
 
+            return 0;
+        }
+        return damage;
     }
+
+
+
+
     public void sufferAttack(int damage){
         if (chooseDodge){ // if we choose to dodge, it will call de tryToDodge method;
             tryToDodge(damage);
@@ -66,6 +74,7 @@ public abstract class Character implements Attackable {
             defend(damage);
             return;
         }
+        decreaseHealth(damage);
 
     }
 

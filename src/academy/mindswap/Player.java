@@ -19,9 +19,7 @@ public class Player {
     private void handleServer() {
         setServer();
         createServerComms();
-        ServerListner serverListner = new ServerListner();
-        new Thread(serverListner).start();
-        serverWriter();
+        serverListener();
     }
 
     private void serverWriter() {
@@ -29,7 +27,6 @@ public class Player {
             serverWriter.write(consoleReader.readLine());
             serverWriter.newLine();
             serverWriter.flush();
-            serverWriter();
         } catch (IOException e) {
             return;
         }
@@ -58,6 +55,22 @@ public class Player {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+    public void serverListener() {
+        String message = null;
+        try {
+            message = serverReader.readLine();
+            if (message.equals("-2")) {
+                serverWriter();
+            }
+            if(!message.equals("-2")) {
+                System.out.println(message);
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        serverListener();
     }
 
 

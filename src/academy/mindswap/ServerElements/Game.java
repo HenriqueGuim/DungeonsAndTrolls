@@ -1,16 +1,13 @@
 package academy.mindswap.ServerElements;
 
+import academy.mindswap.ServerElements.GameElements.GameInterfaces.Attackable;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Monsters.*;
 import academy.mindswap.ServerElements.GameElements.Obstacles.Obstacle;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.BadChest;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.EmptyRoom;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.Fairy;
-import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.GoodChest;
+import academy.mindswap.ServerElements.GameElements.Obstacles.SpecialObstacles.*;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Character;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Knight;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Mage;
 import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
-
 import java.io.*;
 import java.util.*;
 
@@ -27,8 +24,6 @@ public class Game implements Runnable {
     private Server server;
     private Obstacle[][] map;
     private int[] playersPosition;
-
-
     public Game(ClientHandler[] clientHandlers, Server server) {
         player1 = clientHandlers[0];
         player2 = clientHandlers[1];
@@ -38,9 +33,10 @@ public class Game implements Runnable {
         player3Name = player3.getName();
         this.server = server;
         playersPosition = new int[]{0, 0};
-        createMap();
+        player1.startGame();
+        player2.startGame();
+        player3.startGame();
     }
-
     private void createMap() {
 
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
@@ -62,7 +58,6 @@ public class Game implements Runnable {
 
 
     }
-
     private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
@@ -118,8 +113,6 @@ public class Game implements Runnable {
         }
         broadcast("You are at the position of " + "\033[42m" + "  " + "\033[0m" + " background.");
     }
-
-
     @Override
     public void run() {
 
@@ -139,23 +132,336 @@ public class Game implements Runnable {
         createMap();
         playersChooseCharacters();
         startGame();
-                //askToPlayAgain();
     }
 
     private void startGame() {
         sendIntro();
         playGame();
-
-
-
     }
-
     private void playGame() {
         showMap();
         voteToMove();
-        playGame();
+        handleRoom();
+        sendStatus();
+
+        if(!checkIfBossDefeated()){
+            playGame();
+        }
+        winGame();
+    }
+    private void gameOver() {
+        try {
+            readFileRed("resources/Art/GameOver.txt");
+            Thread.sleep(500);
+            readFile("resources/Narrator/OutroLose.txt");
+            Thread.sleep(500);
+            broadcast("-".repeat(40));
+            Thread.sleep(500);
+            verifyIfWantToPlay();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void winGame() {
+
+        try {
+            readFileGreen("resources/Art/YouWin");
+            Thread.sleep(500);
+            readFile("resources/Narrator/OutroWin.txt");
+            Thread.sleep(500);
+            broadcast("-".repeat(40));
+            Thread.sleep(500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        verifyIfWantToPlay();
     }
 
+    private void verifyIfWantToPlay() {
+        broadcast("Want to continue playing?");
+        Thread thread1 = new Thread(()->endGameResponse(player1));
+        Thread thread2 = new Thread(()->endGameResponse(player2));
+        Thread thread3 = new Thread(()->endGameResponse(player3));
+        thread1.start();
+        thread2.start();
+        thread3.start();
+        try {
+            thread1.join();
+            thread2.join();
+            thread3.join();
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+        Thread.currentThread().interrupt();
+    }
+    private void endGameResponse(ClientHandler player) {
+        String response = player.readMessage();
+        response.toLowerCase();
+        switch (response){
+            case "yes": player.sendMessage("Wait while we search for a new opponent");
+                player.endGame();
+                server.connectPlayers();
+                return;
+            case "no": player.sendMessage("Thank you for playing with us.");
+                server.clientsList.remove(player);
+                return;
+            case "-1": server.clientsList.remove(player);
+                return;
+            default: player.sendMessage("Please insert a valid message: Yes or No");
+                endGameResponse(player);
+        }
+    }
+    private void handleRoom() {
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == EmptyRoom.class) {
+            handleEmptyRoom();
+            return;
+        }
+        if (map[playersPosition[0]][playersPosition[1]] instanceof Attackable) {
+            handleMonster();
+            return;
+        }
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class || map[playersPosition[0]][playersPosition[1]].getClass() == BadChest.class){
+            handleChest();
+            return;
+        }
+
+        if (map[playersPosition[0]][playersPosition[1]].getClass() == Fairy.class) {
+            handleFairy();
+            return;
+        }
+    }
+    private void handleMonster() {
+        Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
+        if(monster.isDead()){
+            introDeadMonster(monster);
+            return;
+        }
+        introduceMonster(monster);
+        fight();
+        monsterDefeated();
+
+    }
+    private boolean checkIfBossDefeated() {
+        Monsters finalBoss = (Monsters) map[5][5];
+        if (finalBoss.isDead()) {
+            return true;
+        }
+        return false;
+    }
+    private void monsterDefeated() {
+        broadcast("Well done! You destroyed the monster.");
+    }
+    private void introDeadMonster(Monsters monster) {
+        broadcast ("You encounter a dead " + monster.getClass().getSimpleName());
+    }
+    private void introduceMonster(Monsters monsters) {
+        broadcast("You encounter a " + monsters.getClass().getSimpleName());
+        String monsterFile = "";
+        if (Slime.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Slime.txt";
+        } if (Goblin.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Goblin.txt";
+        } if (Troll.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Troll.txt";
+        } if (MiniBoss.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/MiniBoss";
+        } if (FinalBoss.class.equals(monsters.getClass())) {
+            monsterFile = "resources/Art/Boss";
+        }
+        readFileRed(monsterFile);
+
+    }
+    private void fight() {
+        Monsters monster = (Monsters) map[playersPosition[0]][playersPosition[1]];
+        chooseMove();
+        monsterAttack(monster);
+
+        monster.defend(player1Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        monster.defend(player2Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        monster.defend(player3Character.attack());
+        if (monster.isDead()) {
+            monster.die();
+            return;
+        }
+        sendStatus();
+        fight();
+    }
+    private void sendStatus() {
+            player1.sendMessage("STATUS: " + player1Character.getHealth()+ " HP");
+            player2.sendMessage("STATUS: " + player2Character.getHealth()+ " HP");
+            player3.sendMessage("STATUS: " + player3Character.getHealth()+ " HP");
+    }
+    private void monsterAttack(Monsters monster) {
+        ClientHandler playerToAttack;
+        if (!player1.getCharacter().isDead()){playerToAttack = player1;} else if (!player2.getCharacter().isDead())
+        {playerToAttack = player2;} else {playerToAttack = player3;}
+
+
+        if (playerToAttack.getCharacter().getHealth() > player2Character.getHealth() && !player2Character.isDead()) {
+            playerToAttack = player2;
+        }
+        if (playerToAttack.getCharacter().getHealth() > player3Character.getHealth() && !player3Character.isDead()) {
+            playerToAttack = player3;
+        }
+
+        broadcast(monster.getClass().getSimpleName() + " Attack " + playerToAttack.getName());
+        playerToAttack.getCharacter().sufferAttack(monster.getDamage());
+        checkIfDead(playerToAttack.getCharacter());
+    }
+    private void checkIfDead(Character playerToAttack) {
+        if (playerToAttack.isDead()) {
+            playerToAttack.die();
+        }
+        if(player1Character.isDead()&& player2Character.isDead() && player3Character.isDead()){
+            gameOver();
+        }
+    }
+    private void chooseMove() {
+        broadcast("Choose your move from list bellow:");
+        broadcast("1. Attack 2. Dodge 3. Defend");
+        playersChooseMove();
+    }
+    private void playersChooseMove() {
+        player1.chooseMove();
+        player2.chooseMove();
+        player3.chooseMove();
+    }
+    private void handleChest() {
+        broadcast("\033[1;31m" + "::::::::CHEST::::::::" + "\033[0m");
+        Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
+        if(!chest.isOpen()) {
+            try {
+                countChestVotes();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return;
+        }
+        broadcast("The chest is already open.");
+    }
+    private void countChestVotes() throws IOException {
+        int openChestVotes = 0;
+        int dontOpenChestVotes = 0;
+
+        broadcast("Please vote to open the chest or not with the commands: 'yes' to open or 'no' to not open.");
+       if(!player1Character.isDead()){
+           if(player1.getChestVote() == 'y'){
+               openChestVotes++;
+           }
+           else{
+               dontOpenChestVotes++;
+           }
+       }
+       if (!player2Character.isDead()){
+            if(player2.getChestVote() == 'y'){
+             openChestVotes++;
+            }
+            else{
+            dontOpenChestVotes++;
+            }
+        }
+       if(!player3Character.isDead()) {
+           if (player3.getChestVote() == 'y') {
+               openChestVotes++;
+           } else {
+               dontOpenChestVotes++;
+           }
+       }
+        if (openChestVotes > dontOpenChestVotes) {
+            openChest();
+            return;
+        }
+        if(openChestVotes == dontOpenChestVotes){
+            broadcast("Please get to an agreement");
+            countChestVotes();
+        }
+
+        dontOpenChest();
+    }
+    private void dontOpenChest() {
+        broadcast("The chest remains closed.");
+    }
+    private void openChest() {
+        broadcast("The chest is open!");
+        broadcast("you have found a warm meal!\nYou ate it.");
+        Chest chest = (Chest) map[playersPosition[0]][playersPosition[1]];
+        chest.open();
+        if(map[playersPosition[0]][playersPosition[1]].getClass() == GoodChest.class){
+            if(!player1Character.isDead()) {
+                player1.sendMessage("you have got a boost in your health!");
+                player1Character.increaseHealth(chest.getHealthModifier());
+            }
+            if(!player2Character.isDead()) {
+                player2.sendMessage("you have got a boost in your health!");
+                player2Character.increaseHealth(chest.getHealthModifier());
+            }
+            if(!player3Character.isDead()) {
+                player3.sendMessage("you have got a boost in your health!");
+                player3Character.increaseHealth(chest.getHealthModifier());
+            }
+
+            return;
+        }
+        if(!player1Character.isDead()) {
+            player1.sendMessage("The meal was spoiled! you lose some health!");
+            player1Character.increaseHealth(chest.getHealthModifier());
+        }
+        if(!player2Character.isDead()) {
+            player2.sendMessage("The meal was spoiled! you lose some health!");
+            player2Character.increaseHealth(chest.getHealthModifier());
+        }
+        if(!player3Character.isDead()) {
+            player3.sendMessage("The meal was spoiled! you lose some health!");
+            player3Character.increaseHealth(chest.getHealthModifier());
+        }
+
+
+    }
+    private void handleFairy() {
+        Fairy fairy = (Fairy) map[playersPosition[0]][playersPosition[1]];
+        if(!fairy.hasCured()){
+            fairy.visitRoom();
+            broadcast("\033[1;31m" + "The players have found a fairy!" + "\033[0m");
+            broadcast("\033[1;31m" + "The players that reach this point had his life restored in " + fairy.getHealthModifier() + " points!" + "\033[0m");
+            
+            if(!player1Character.isDead()){player1Character.increaseHealth(fairy.getHealthModifier());}
+            if(!player2Character.isDead()){player2Character.increaseHealth(fairy.getHealthModifier());}
+            if(!player3Character.isDead()){player3Character.increaseHealth(fairy.getHealthModifier());}
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            fairy.cure();
+            return;
+        }
+        broadcast("\033[1;31m" + "You have found a fairy!" + "\033[0m");
+        broadcast("But already have healed you once!");
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+    private void handleEmptyRoom() {
+        EmptyRoom emptyRoom = (EmptyRoom) map[playersPosition[0]][playersPosition[1]];
+        broadcast(emptyRoom.getRoomMessage());
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
     private void voteToMove() {
         broadcast("\033[1;31m" + "::::::::VOTE TO MOVE::::::::" + "\033[0m");
         broadcast("You must vote to move in a direction.");
@@ -165,7 +471,6 @@ public class Game implements Runnable {
 
 
     }
-
     private void move(char direction) {
         switch (direction){
             case 'N':
@@ -183,7 +488,6 @@ public class Game implements Runnable {
         }
         map[playersPosition[0]][playersPosition[1]].visitRoom();
     }
-
     private char countVotes() {
         int[] votesCounter = new int[]{0, 0, 0, 0};
 
@@ -192,9 +496,9 @@ public class Game implements Runnable {
         int deadPlayers = 0;
 
         try {
-            votes[0] = player1.getVote();
-            votes[1] = player2.getVote();
-            votes[2] = player3.getVote();
+            votes[0] = player1.getMoveVote();
+            votes[1] = player2.getMoveVote();
+            votes[2] = player3.getMoveVote();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -225,6 +529,10 @@ public class Game implements Runnable {
                 if(votesCounter[i] >= 2)
                 max = i;
             }
+        }else {for(int i = 0; i < votesCounter.length; i++) {
+            if(votesCounter[i] > max)
+                max = votesCounter[i];
+        }
         }
 
         if(max == -1) {
@@ -233,7 +541,6 @@ public class Game implements Runnable {
 
         return checkIfEdge(max);
        }
-
     private char checkIfEdge(int direction) {
         if(direction == 0 && playersPosition[0] !=0){
             return 'N';
@@ -241,35 +548,36 @@ public class Game implements Runnable {
         else if(direction == 1 && playersPosition[0] != 5){
             return 'S';
         }
-        else if(direction == 2 && playersPosition[1] != 0){
+        else if(direction == 2 && playersPosition[1] != 5){
             return 'E';
         }
-        else if(direction == 3 && playersPosition[1] != 5){
+        else if(direction == 3 && playersPosition[1] != 0){
             return 'W';
         }
 
         return checkIfEdge(randomDirection());
     }
-
     private int randomDirection() {
         return new Random().nextInt(4);
     }
-
-
     private void sendIntro() {
-        readFile();
-        broadcast("----------------------------------------------------");
+        try {
+            readFile("resources/Narrator/Intro.txt");
+            Thread.sleep(50);
+            broadcast("-".repeat(40));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
-
-    private void readFile() {
-        File file = new File("resources/Narrator/Intro.txt");
+    private void readFile(String path) {
+        File file = new File(path);
         String message = "";
         BufferedReader fileReader;
         try {
             fileReader = new BufferedReader(new FileReader(file));
             while ((message = fileReader.readLine()) != null) {
                 broadcast(message);
-                Thread.sleep(10);
+                Thread.sleep(50);
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
@@ -278,31 +586,55 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
     }
-
-    private void broadcast(String message) {
+    private void readFileGreen(String path) {
+        File file = new File(path);
+        String message = "";
+        BufferedReader fileReader;
         try {
+            fileReader = new BufferedReader(new FileReader(file));
+            while ((message = fileReader.readLine()) != null) {
+                broadcast("\033[0;92m"+message+ "\033[0m");
+                Thread.sleep(50);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void readFileRed(String path) {
+        File file = new File(path);
+        String message = "";
+        BufferedReader fileReader;
+        try {
+            fileReader = new BufferedReader(new FileReader(file));
+            while ((message = fileReader.readLine()) != null) {
+                broadcast("\033[1;31m"+message+ "\033[0m");
+                Thread.sleep(50);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private void broadcast(String message) {
             player1.sendMessage(message);
             player2.sendMessage(message);
             player3.sendMessage(message);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
     }
-
-
     public Character chooseCharacter(ClientHandler clientHandler) {
         String characterNumber ="";
         Character character = null;
-        try {
-            clientHandler.sendMessage("Choose you character from the above:");
-            clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
-            characterNumber = clientHandler.readMessage();
+        clientHandler.sendMessage("Choose you character from the above:");
+        clientHandler.sendMessage("1.Mage  2.Knight 3.Squire\nplease insert the number of the character");
+        characterNumber = clientHandler.readMessage();
 
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
         try {
             switch (characterNumber){
                 case "1": character = new Mage();
@@ -310,6 +642,8 @@ public class Game implements Runnable {
                 case "2": character= new Knight();
                 break;
                 case "3": character = new Squire();
+                break;
+                case "-1": character = new Squire();
                 break;
                 default: character = chooseCharacter(clientHandler);
             }
@@ -351,8 +685,6 @@ public class Game implements Runnable {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        broadcast("----------------------------------------------------");
+        broadcast("-".repeat(40));
     }
 }
-
-

@@ -17,4 +17,8 @@ public abstract class Obstacle {
     public void visitRoom(){
         visitedRoom = true;
     }
+
+    public boolean isVisitedRoom() {
+        return visitedRoom;
+    }
 }
