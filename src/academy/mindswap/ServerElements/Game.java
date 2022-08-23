@@ -11,6 +11,10 @@ import academy.mindswap.ServerElements.GameElements.PlayerCharacters.Squire;
 import java.io.*;
 import java.util.*;
 
+
+/**
+ * This class represents the game process and handles the players and the obstacles.
+ */
 public class Game implements Runnable {
     private ClientHandler player1;
     private ClientHandler player2;
@@ -24,6 +28,12 @@ public class Game implements Runnable {
     private Server server;
     private Obstacle[][] map;
     private int[] playersPosition;
+
+    /**
+     * Constructor for the game.
+     * @param server The server that the game is running on.
+     * @param clientHandlers An array with of the three client handlers of the players.
+     */
     public Game(ClientHandler[] clientHandlers, Server server) {
         player1 = clientHandlers[0];
         player2 = clientHandlers[1];
@@ -37,6 +47,10 @@ public class Game implements Runnable {
         player2.startGame();
         player3.startGame();
     }
+
+    /**
+     * This method creates a randomized map for the game with a 6x6 size. The number of obstacles is manged by the method createObstacles.
+     */
     private void createMap() {
 
         map = new Obstacle[][]{new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6], new Obstacle[6]};
@@ -58,6 +72,10 @@ public class Game implements Runnable {
 
 
     }
+
+    /**
+     * This method creates a list of obstacles for the game and randomizes them before returning them.
+     */
     private Collection<Obstacle> createObstacles() {
         int goblinNumber = 6;
         int slimeNumber = 6;
@@ -96,6 +114,10 @@ public class Game implements Runnable {
         Collections.shuffle(obstaclesList);
         return obstaclesList;
     }
+
+    /**
+     * This method broadcasts the map to the players with visual representation of the obstacles case have been visited and indicates the player's position.
+     */
     public void showMap(){
         broadcast("\033[1;31m" + "::::::::MAP::::::::" + "\033[0m");
         for (int i = 0; i < 6; i++) {
@@ -115,20 +137,6 @@ public class Game implements Runnable {
     }
     @Override
     public void run() {
-
-        //TODO say to the players that the game is starting
-        //TODO ask the players to choose a character
-        //TODO show the players the map
-        //TODO ask the players to choose the moving direction and vote, if the vote isn't unanimous they will move in a random direction
-        //TODO if the players are on the edge of the map, they have to vote again
-        //TODO check which type of obstacle is on the players position and act accordingly
-        //TODO if is a chest obstacle, the players have to vote to open it.
-        //TODO if is a fairy obstacle, all the players receive a boost in his health
-        //TODO if is a monster obstacle, the players have to attack and defend the monster until it dies (the monster should attack the player with less health)
-        //TODO the players have to choose his action for the round
-        //TODO show the players the character stats
-        //TODO show the players the map and repeat until they move to the final boss room
-
         createMap();
         playersChooseCharacters();
         startGame();
