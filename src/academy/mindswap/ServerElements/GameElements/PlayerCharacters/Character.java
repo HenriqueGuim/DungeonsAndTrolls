@@ -53,7 +53,7 @@ public abstract class Character implements Attackable {
     }
 
     public int attack() {
-        if( health <= 0 ){
+        if( this.health <= 0 ){
             return damage = 0;
         }
         if (chooseDodge || chooseDefend){
@@ -64,8 +64,6 @@ public abstract class Character implements Attackable {
         }
         return damage;
     }
-
-
 
 
     public void sufferAttack(int damage){
