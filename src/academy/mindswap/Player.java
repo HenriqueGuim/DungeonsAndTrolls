@@ -4,6 +4,8 @@ import java.io.*;
 import java.net.Socket;
 
 public class Player {
+    String address = "localhost";
+    int portNumber = 8080;
 
     private Socket serverSocket;
     private BufferedReader serverReader;
@@ -47,7 +49,7 @@ public class Player {
 
     private void setServer() {
         try {
-            serverSocket = new Socket("localhost", 8080);
+            serverSocket = new Socket(address, portNumber);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
