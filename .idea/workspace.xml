@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="Added JavaDoc">
+    <list default="true" id="fa031fc3-3995-4493-b73f-6c5585d3e3e7" name="Changes" comment="corretec bug navigating in the map">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/academy/mindswap/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/academy/mindswap/Player.java" afterDir="false" />
     </list>
@@ -236,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661276218701</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="corretec bug navigating in the map">
+      <created>1661285208446</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1661285208446</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.History.Properties">
@@ -275,7 +282,8 @@
     <MESSAGE value="." />
     <MESSAGE value="Final Version" />
     <MESSAGE value="Added JavaDoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added JavaDoc" />
+    <MESSAGE value="corretec bug navigating in the map" />
+    <option name="LAST_COMMIT_MESSAGE" value="corretec bug navigating in the map" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

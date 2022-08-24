@@ -24,7 +24,10 @@ public class Player {
 
     private void serverWriter() {
         try {
-            //System.in.skip(System.in.available()-1);
+            while (consoleReader.ready()){
+                consoleReader.readLine();
+            }
+
             serverWriter.write(consoleReader.readLine());
             serverWriter.newLine();
             serverWriter.flush();
