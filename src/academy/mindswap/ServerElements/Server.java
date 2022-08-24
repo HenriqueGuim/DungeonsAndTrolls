@@ -110,7 +110,7 @@ public class Server {
 
         if (playerCount == 3) {
             System.out.println("starting a new game");
-            clientsList.forEach(client -> {
+            clientHandlers.forEach(client -> {
                 client.sendMessage("starting a new game");
             });
             Game game = new Game(clientHandlers, this);

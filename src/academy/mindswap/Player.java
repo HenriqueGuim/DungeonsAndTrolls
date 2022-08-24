@@ -30,6 +30,8 @@ public class Player {
                 consoleReader.readLine();
             }
 
+
+
             serverWriter.write(consoleReader.readLine());
             serverWriter.newLine();
             serverWriter.flush();
